@@ -15,19 +15,25 @@ h5,
 h6,
 .h6,
 .h {
-  font-weight: bold;
-  margin: 0 0 0.5em;
-  color: $headings-color;
+  text-transform: uppercase;
 }
 
 h1,
 .h1 {
-  font-size: $h1-font-size;
+  @include adaptive-value('font-size', 64, 40, 1);
+  font-weight: 600;
+  color: map-get($neutral, 100);
+  letter-spacing: 0.01em;
+  @include px-to-percent-line-height(64px, 64px);
 }
 
 h2,
 .h2 {
-  font-size: $h2-font-size;
+  @include adaptive-value('font-size', 48, 32, 1);
+  font-weight: 700;
+  color: map-get($brand, 500);
+  letter-spacing: 0.01em;
+  @include px-to-percent-line-height(56px, 48px);
 }
 
 h3,
@@ -51,7 +57,7 @@ h6,
 }
 
 p {
-  margin: 0 0 1em;
+  margin: 0;
 }
 
 a {

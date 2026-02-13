@@ -75,13 +75,7 @@
   }
 
   &__title {
-    @include adaptive-value('font-size', 64, 40, 1);
-    font-weight: 600;
-    color: map-get($neutral, 100);
-    letter-spacing: 0.01em;
     margin-bottom: 16px;
-    @include px-to-percent-line-height(64px, 64px);
-    text-transform: uppercase;
     @include adaptive-value('margin-bottom', 16, 12, 1);
 
     span {

@@ -42,3 +42,87 @@ function initMobileMenu() {
 }
 
 initMobileMenu();
+
+function initVideoControls() {
+  const videoContainer = document.querySelector('.who__video');
+  if (!videoContainer) return;
+
+  const video = videoContainer.querySelector('video');
+  const playBtn = videoContainer.querySelector('.who__btn.play');
+  const muteBtn = videoContainer.querySelector('.who__btn.mute');
+
+  if (!video || !playBtn || !muteBtn) return;
+
+  const playIcon = playBtn.querySelector('.play-icon');
+  const pauseIcon = playBtn.querySelector('.pause-icon');
+  const unmuteIcon = muteBtn.querySelector('.unmute-icon');
+  const muteIcon = muteBtn.querySelector('.mute-icon');
+
+  // Update play/pause button state
+  function updatePlayButton() {
+    if (video.paused) {
+      // Video is paused - show play icon
+      if (playIcon) playIcon.style.display = 'block';
+      if (pauseIcon) pauseIcon.style.display = 'none';
+      playBtn.setAttribute('aria-label', 'Play video');
+    } else {
+      // Video is playing - show pause icon
+      if (playIcon) playIcon.style.display = 'none';
+      if (pauseIcon) pauseIcon.style.display = 'block';
+      playBtn.setAttribute('aria-label', 'Pause video');
+    }
+  }
+
+  // Update mute button state
+  function updateMuteButton() {
+    if (video.muted) {
+      // Video is muted - show unmute icon (to enable sound)
+      if (muteIcon) muteIcon.style.display = 'none';
+      if (unmuteIcon) unmuteIcon.style.display = 'block';
+      muteBtn.setAttribute('aria-label', 'Unmute video');
+    } else {
+      // Video is unmuted - show mute icon (to disable sound)
+      if (muteIcon) muteIcon.style.display = 'block';
+      if (unmuteIcon) unmuteIcon.style.display = 'none';
+      muteBtn.setAttribute('aria-label', 'Mute video');
+    }
+  }
+
+  // Initialize button states after video is loaded
+  function initializeControls() {
+    updatePlayButton();
+    updateMuteButton();
+  }
+
+  // Wait for video to be ready
+  if (video.readyState >= 2) {
+    // Video is already loaded
+    initializeControls();
+  } else {
+    // Wait for video to load
+    video.addEventListener('loadeddata', initializeControls);
+  }
+
+  // Play/Pause toggle
+  playBtn.addEventListener('click', () => {
+    if (video.paused) {
+      video.play().catch((error) => {
+        console.error('Error playing video:', error);
+      });
+    } else {
+      video.pause();
+    }
+  });
+
+  // Mute/Unmute toggle
+  muteBtn.addEventListener('click', () => {
+    video.muted = !video.muted;
+  });
+
+  // Update buttons when video state changes
+  video.addEventListener('play', updatePlayButton);
+  video.addEventListener('pause', updatePlayButton);
+  video.addEventListener('volumechange', updateMuteButton);
+}
+
+initVideoControls();

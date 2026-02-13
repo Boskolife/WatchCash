@@ -1,0 +1,130 @@
+.who {
+  padding: 80px 0;
+
+  &__title {
+    @include adaptive-value('margin-bottom', 60, 40, 1);
+    text-align: center;
+  }
+
+  &__inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    justify-content: space-between;
+    gap: 32px;
+    padding-bottom: 70px;
+
+    @include media('<desktop') {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__video {
+    position: relative;
+    max-width: 520px;
+    width: 100%;
+    height: 100%;
+
+    @include media('<desktop') {
+      display: flex;
+      flex-direction: column;
+      row-gap: 12px;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+      overflow: hidden;
+
+      @include media('<desktop') {
+        height: 560px;
+      }
+    }
+  }
+
+  &__video-text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: absolute;
+    bottom: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+
+    @include media('<desktop') {
+      position: static;
+      transform: none;
+    }
+
+    color: map-get($brand, 500);
+
+    b {
+      font-weight: 600;
+      font-size: 24px;
+      text-transform: uppercase;
+    }
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: none;
+    background-color: map-get($brand, 500);
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    position: absolute;
+    border-radius: 50%;
+
+    &.play {
+      top: 16px;
+      left: 16px;
+    }
+
+    &.mute {
+      top: 16px;
+      right: 16px;
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+  }
+
+  &__content {
+    height: 100%;
+  }
+
+  &__text {
+    @include adaptive-value('font-size', 24, 16, 1);
+    color: map-get($brand, 400);
+    @include adaptive-value('margin-bottom', 32, 40, 1);
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    overflow: hidden;
+
+    @include media('<desktop') {
+      height: 415px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
