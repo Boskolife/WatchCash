@@ -1,0 +1,94 @@
+// Color palette
+$neutral: (
+  900: #2b2b2c,
+  800: #565657,
+  700: #818183,
+  600: #acacae,
+  500: #d7d7da,
+  400: #dfdfe1,
+  300: #e7e7e9,
+  200: #efeff0,
+  100: #f7f7f8,
+);
+
+$red: (
+  900: #2d0000,
+  800: #590000,
+  700: #860000,
+  600: #b20000,
+  500: #df0000,
+  400: #e53333,
+  300: #ec6666,
+  200: #f29999,
+  100: #f9cccc,
+);
+
+$yellow: (
+  900: #2c2100,
+  800: #594100,
+  700: #856200,
+  600: #b28200,
+  500: #dea300,
+  400: #e5b533,
+  300: #ebc866,
+  200: #f2da99,
+  100: #f8edcc,
+);
+
+$brand: (
+  900: #02030c,
+  800: #040718,
+  700: #070a23,
+  600: #090e2f,
+  500: #0b113b,
+  400: #3c4162,
+  300: #6d7089,
+  200: #9da0b1,
+  100: #cecfd8,
+  50: #e6e8ec,
+);
+
+$white: #fff;
+$black: #000;
+
+// Typography
+$base-font-sans-serif: 'Inter Tight', 'Helvetica Neue', 'Helvetica', sans-serif;
+
+$rem-base: 16px;
+$font-size-base: 16px !default;
+$line-height-base: 1.2 !default;
+$base-font-family: $base-font-sans-serif !default;
+
+// Body
+$base-text-color: map-get($neutral, 900) !default;
+$base-background-color: map-get($neutral, 100) !default;
+$vertical-rhythm: ($line-height-base * 1em);
+$base-min-width: 320px;
+
+// Links
+$base-link-color: map-get($neutral, 900);
+
+// Buttons
+$btn-color: $white !default;
+$btn-background: map-get($brand, 600) !default;
+$btn-padding: 0.4em 0.7em !default;
+$btn-font-size: inherit !default;
+
+// Forms
+$form-element-padding: $btn-padding !default;
+$form-element-border-color: map-get($neutral, 400) !default;
+$form-element-focus-border-color: map-get($neutral, 900) !default;
+$placeholder-color: map-get($neutral, 500) !default;
+
+// Headings
+$h1-font-size: 78px;
+$h2-font-size: 52px;
+$h3-font-size: 24px;
+$h4-font-size: 22px;
+$h5-font-size: 17px;
+$h6-font-size: 15px;
+$headings-font-family: $base-font-sans-serif;
+$headings-color: inherit !default;
+
+// Transitions
+$animation-speed: all 0.3s ease 0s;

@@ -1,0 +1,162 @@
+.header {
+  &__inner {
+    padding: 28px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: relative;
+
+    @include media('<tablet') {
+      padding: 12px 0;
+    }
+  }
+
+  &__left-col {
+    display: flex;
+    align-items: center;
+    @include adaptive-value('column-gap', 35, 10, 1);
+
+    @include media ("<tablet") {
+        gap: 0;
+    }
+  }
+
+  &__burger-menu {
+    display: none;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 48px;
+    height: 48px;
+    border: none;
+    background-color: transparent;
+    padding: 19px 15px;
+    margin-right: 8px;
+
+    @include media('<tablet') {
+      display: flex;
+    }
+
+    span {
+      width: 100%;
+      min-height: 2px;
+      background-color: map-get($brand, 400);
+      display: block;
+    }
+  }
+
+  &__logo-link {
+    display: block;
+    @include adaptive-value('max-width', 112, 84, 1);
+    width: 100%;
+  }
+
+  &__logo {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__button-contact {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: map-get($brand, 400);
+    text-transform: uppercase;
+
+    @include media('<tablet') {
+      display: none;
+    }
+  }
+
+  &__middle-col {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @include media('<tablet') {
+      display: none;
+    }
+  }
+
+  &__nav-list {
+    display: flex;
+    align-items: center;
+    @include adaptive-value('column-gap', 30, 10, 1);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__nav-link {
+    font-size: 16px;
+    font-weight: 600;
+    color: map-get($brand, 400);
+    text-transform: uppercase;
+  }
+
+  &__action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+
+    img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+  }
+
+  &__bottom {
+    background: linear-gradient(180deg, #d8dde2 0%, #fcfcfd 99.04%);
+    padding: 12px 0;
+
+    &-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    &-logo {
+      display: block;
+      width: 37px;
+      height: 24px;
+
+      @include media('<tablet') {
+        width: 25px;
+        height: 16px;
+      }
+    }
+
+    &-text {
+      @include adaptive-value('font-size', 20, 16, 1);
+      font-weight: 600;
+      color: map-get($brand, 400);
+      text-transform: uppercase;
+    }
+  }
+}
