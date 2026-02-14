@@ -157,8 +157,158 @@ function initShopSlider() {
       },
     },
   });
+
+  if (!shopSlider) return;
+}
+
+function initSliderVideo() {
+  const sliderVideo = new Swiper('.swiper_video', {
+    modules: [Navigation],
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+      320: {
+        slidesPerView: 1,
+        loop: false,
+        spaceBetween: 16,
+      },
+      480:{
+        slidesPerView: 1.3,
+        loop: true,
+        centeredSlides: true,
+        spaceBetween: 16,
+      },
+      576:{
+        slidesPerView: 1.8,
+        loop: true,
+        centeredSlides: true,
+        spaceBetween: 16,
+      },
+      768:{
+        slidesPerView: 2.5,
+        loop: true,
+        centeredSlides: true,
+        spaceBetween: 16,
+      },
+      1024:{
+        slidesPerView: 3.5,
+        loop: true,
+        centeredSlides: true,
+        spaceBetween: 16,
+      },
+      1200:{
+        slidesPerView: 3.8,
+        loop: true,
+        centeredSlides: true,
+        spaceBetween: 20,
+      },
+    },
+  });
+
+  const container = document.querySelector('.swiper_video');
+  if (!container) return;
+
+  function pauseAllVideos() {
+    container.querySelectorAll('video').forEach((video) => {
+      video.pause();
+    });
+  }
+
+  function playActiveSlideVideo() {
+    const activeSlide = container.querySelector('.swiper-slide-active');
+    if (!activeSlide) return;
+    const video = activeSlide.querySelector('video');
+    if (video) {
+      video.play().catch((err) => console.error('Video play failed:', err));
+    }
+  }
+
+  function onSlideChange() {
+    pauseAllVideos();
+    playActiveSlideVideo();
+  }
+
+  function updateItemPlayState(item) {
+    const video = item.querySelector('video');
+    const playBtn = item.querySelector('.slider-video__btn.play');
+    if (!video || !playBtn) return;
+    const playIcon = playBtn.querySelector('.play-icon');
+    const pauseIcon = playBtn.querySelector('.pause-icon');
+    if (video.paused) {
+      playIcon?.classList.remove('is-hidden');
+      pauseIcon?.classList.add('is-hidden');
+      playBtn.setAttribute('aria-label', 'Play video');
+    } else {
+      playIcon?.classList.add('is-hidden');
+      pauseIcon?.classList.remove('is-hidden');
+      playBtn.setAttribute('aria-label', 'Pause video');
+    }
+  }
+
+  function updateItemMuteState(item) {
+    const video = item.querySelector('video');
+    const muteBtn = item.querySelector('.slider-video__btn.mute');
+    if (!video || !muteBtn) return;
+    const muteIcon = muteBtn.querySelector('.mute-icon');
+    const unmuteIcon = muteBtn.querySelector('.unmute-icon');
+    if (video.muted) {
+      muteIcon?.classList.add('is-hidden');
+      unmuteIcon?.classList.remove('is-hidden');
+      muteBtn.setAttribute('aria-label', 'Unmute video');
+    } else {
+      muteIcon?.classList.remove('is-hidden');
+      unmuteIcon?.classList.add('is-hidden');
+      muteBtn.setAttribute('aria-label', 'Mute video');
+    }
+  }
+
+  container.addEventListener('click', (e) => {
+    const playBtn = e.target.closest('.slider-video__btn.play');
+    const muteBtn = e.target.closest('.slider-video__btn.mute');
+    const item = e.target.closest('.slider-video__item');
+    if (!item) return;
+
+    if (playBtn) {
+      const video = item.querySelector('video');
+      if (video) {
+        if (video.paused) {
+          video.play().catch((err) => console.error('Video play failed:', err));
+        } else {
+          video.pause();
+        }
+        updateItemPlayState(item);
+      }
+    }
+
+    if (muteBtn) {
+      const video = item.querySelector('video');
+      if (video) {
+        video.muted = !video.muted;
+        updateItemMuteState(item);
+      }
+    }
+  });
+
+  container.querySelectorAll('.slider-video__item').forEach((item) => {
+    const video = item.querySelector('video');
+    if (!video) return;
+    video.addEventListener('play', () => updateItemPlayState(item));
+    video.addEventListener('pause', () => updateItemPlayState(item));
+    video.addEventListener('volumechange', () => updateItemMuteState(item));
+  });
+
+  sliderVideo.on('slideChangeTransitionEnd', onSlideChange);
+  onSlideChange();
+
+  container.querySelectorAll('.slider-video__item').forEach((item) => {
+    updateItemPlayState(item);
+    updateItemMuteState(item);
+  });
 }
 
 initMobileMenu();
 initVideoControls();
 initShopSlider();
+initSliderVideo();
