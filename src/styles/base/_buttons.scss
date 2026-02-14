@@ -10,6 +10,8 @@
   text-transform: uppercase;
   text-decoration: none;
   transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
 
   @include media('<tablet') {
     padding: 14px 20px;
