@@ -1,3 +1,10 @@
+// core version + navigation, pagination modules:
+import Swiper from 'swiper';
+import { Navigation } from 'swiper/modules';
+// import Swiper and modules styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+
 const MOBILE_MENU_OPEN_CLASS = 'mobile-menu--open';
 const BODY_MENU_OPEN_CLASS = 'body-menu-open';
 
@@ -40,8 +47,6 @@ function initMobileMenu() {
     }
   });
 }
-
-initMobileMenu();
 
 function initVideoControls() {
   const videoContainer = document.querySelector('.who__video');
@@ -125,4 +130,35 @@ function initVideoControls() {
   video.addEventListener('volumechange', updateMuteButton);
 }
 
+function initShopSlider() {
+  const shopSlider = new Swiper('.shop__slider', {
+    modules: [Navigation],
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    slidesPerView: 4,
+    spaceBetween: 32,
+    breakpoints: {
+      320: {
+        slidesPerView: 2,
+        spaceBetween: 16,
+      },
+      480: {
+        slidesPerView: 2.5,
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 24,
+      },
+      1024: {
+        slidesPerView: 4,
+        spaceBetween: 32,
+      },
+    },
+  });
+}
+
+initMobileMenu();
 initVideoControls();
+initShopSlider();

@@ -11,7 +11,7 @@
   text-decoration: none;
   transition: all 0.3s ease;
 
-  @include media ("<tablet") {
+  @include media('<tablet') {
     padding: 14px 20px;
   }
 
@@ -38,9 +38,9 @@
     border: 1px solid map-get($brand, 500);
     color: map-get($brand, 500);
 
-    &:hover{
-        background-color: map-get($brand, 500);
-        color: map-get($neutral, 100);
+    &:hover {
+      background-color: map-get($brand, 500);
+      color: map-get($neutral, 100);
     }
   }
 
@@ -49,9 +49,48 @@
     border: 1px solid map-get($neutral, 100);
     color: map-get($neutral, 100);
 
-    &:hover{
-        background-color: map-get($neutral, 100);
-        color: map-get($brand, 500);
+    &:hover {
+      background-color: map-get($neutral, 100);
+      color: map-get($brand, 500);
     }
+  }
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  width: 96px !important;
+  height: 56px !important;
+  border-radius: 999px !important;
+  background-color:transparent;
+  border: 1px solid map-get($brand, 500);
+  padding: 0 !important;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: static !important;
+  margin: 0 !important;
+  transition: all 0.3s ease;
+
+  &.swiper-button-disabled{
+    width: 56px !important;
+    height: 56px !important;
+  }
+
+  svg{
+    display: none;
+  }
+
+  img{
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+}
+
+.swiper-button-prev{
+  img{
+    transform: rotate(180deg);
   }
 }
