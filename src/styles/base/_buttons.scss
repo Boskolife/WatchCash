@@ -63,7 +63,7 @@
   width: 96px !important;
   height: 56px !important;
   border-radius: 999px !important;
-  background-color:transparent;
+  background-color: transparent;
   border: 1px solid map-get($brand, 500);
   padding: 0 !important;
   margin: 0;
@@ -75,24 +75,20 @@
   margin: 0 !important;
   transition: all 0.3s ease;
 
-  &.swiper-button-disabled{
+  &.swiper-button-disabled {
     width: 56px !important;
     height: 56px !important;
   }
 
-  svg{
-    display: none;
-  }
-
-  img{
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
+  svg {
+    color: map-get($brand, 500);
+    width: 32px !important;
+    height: 32px !important;
   }
 }
 
-.swiper-button-prev{
-  img{
+.swiper-button-prev {
+  svg {
     transform: rotate(180deg);
   }
 }
