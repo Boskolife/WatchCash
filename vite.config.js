@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import handlebars from 'vite-plugin-handlebars';
 import { htmlFiles } from './getHTMLFileNames';
 
-const base = '/WacthCash';
+const base = '/WatchCash/';
 
 /**
  * Renders <picture> with WebP source and PNG/JPEG fallback.
@@ -105,7 +105,7 @@ const handlebarsReloadPlugin = () => {
 };
 
 export default defineConfig({
-  base: '/WacthCash',
+  base: '/WatchCash',
   root: 'src',
   publicDir: '../public',
   plugins: [
