@@ -1,0 +1,136 @@
+.faq {
+  padding: 80px 0;
+
+  &__inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px 20px;
+
+    @include media('<desktop') {
+      flex-direction: column;
+    }
+  }
+
+  &__content {
+    max-width: 725px;
+    width: 100%;
+
+    @include media('<desktop') {
+      max-width: 100%;
+    }
+  }
+
+  &__title {
+    @include adaptive-value('margin-bottom', 40, 24, 1);
+
+    @include media ("<desktop") {
+        text-align: center;
+    }
+
+    br{
+        @include media ("<phone") {
+            display: none;
+        }
+    }
+  }
+
+  &__image {
+    display: block;
+    max-width: 570px;
+    width: 100%;
+    height: auto;
+    border-radius: 24px;
+    overflow: hidden;
+
+    @include media('<desktop') {
+      max-width: 100%;
+    }
+
+    @include media ("<phone") {
+        height: 280px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__list {
+    max-width: 560px;
+    width: 100%;
+    counter-reset: num;
+
+    @include media('<desktop') {
+      max-width: 100%;
+    }
+  }
+
+  &__item {
+    &[open] {
+      .faq__item-icon {
+        transform: rotate(180deg);
+        transition: transform 0.3s ease-in-out;
+      }
+    }
+
+    &:nth-child(n + 10) {
+      .faq__item-summary {
+        &::before {
+          content: counter(num);
+        }
+      }
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+    &-summary {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      list-style: none;
+      padding: 0;
+      counter-increment: num;
+      @include adaptive-value('padding-bottom', 20, 16, 1);
+      border-bottom: 1px solid map-get($neutral, 400);
+
+      &::before {
+        content: '0' counter(num);
+        margin-right: 8px;
+        font-size: 16px;
+        color: map-get($brand, 400);
+        text-transform: uppercase;
+      }
+    }
+
+    &-title {
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      font-weight: 600;
+      max-width: 390px;
+      width: 100%;
+    }
+
+    &-icon {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      margin-left: auto;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    &-content {
+      padding-top: 12px;
+
+      p {
+        font-weight: 500;
+        @include px-to-percent-line-height(20px, 16px);
+      }
+    }
+  }
+}
