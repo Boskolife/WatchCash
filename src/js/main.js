@@ -7,6 +7,41 @@ import 'swiper/css/navigation';
 
 const MOBILE_MENU_OPEN_CLASS = 'mobile-menu--open';
 const BODY_MENU_OPEN_CLASS = 'body-menu-open';
+const CONTACT_MODAL_OPEN_CLASS = 'contact-modal--open';
+const BODY_MODAL_OPEN_CLASS = 'body-modal-open';
+
+function initContactModal() {
+  const modal = document.querySelector('.contact-modal');
+  const openBtns = document.querySelectorAll('[data-open-contact-modal]');
+  const closeBtn = document.querySelector('.contact-modal__close');
+  const overlay = document.querySelector('.contact-modal__overlay');
+
+  if (!modal || !openBtns.length) return;
+
+  function openModal() {
+    modal.classList.add(CONTACT_MODAL_OPEN_CLASS);
+    modal.setAttribute('aria-hidden', 'false');
+    openBtns.forEach((btn) => btn.setAttribute('aria-expanded', 'true'));
+    document.body.classList.add(BODY_MODAL_OPEN_CLASS);
+  }
+
+  function closeModal() {
+    modal.classList.remove(CONTACT_MODAL_OPEN_CLASS);
+    modal.setAttribute('aria-hidden', 'true');
+    openBtns.forEach((btn) => btn.setAttribute('aria-expanded', 'false'));
+    document.body.classList.remove(BODY_MODAL_OPEN_CLASS);
+  }
+
+  openBtns.forEach((btn) => btn.addEventListener('click', openModal));
+  closeBtn?.addEventListener('click', closeModal);
+  overlay?.addEventListener('click', closeModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains(CONTACT_MODAL_OPEN_CLASS)) {
+      closeModal();
+    }
+  });
+}
 
 function initMobileMenu() {
   const menu = document.getElementById('mobile-menu');
@@ -325,6 +360,7 @@ function updateCurrentYear() {
 }
 
 initMobileMenu();
+initContactModal();
 updateCurrentYear();
 initVideoControls();
 initShopSlider();
