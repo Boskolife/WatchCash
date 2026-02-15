@@ -278,7 +278,9 @@ function initSliderVideo() {
         const video = item.querySelector('video');
         if (video) {
           if (video.paused) {
-            video.play().catch((err) => console.error('Video play failed:', err));
+            video
+              .play()
+              .catch((err) => console.error('Video play failed:', err));
           } else {
             video.pause();
           }
@@ -300,7 +302,9 @@ function initSliderVideo() {
       if (!video) return;
       video.addEventListener('play', () => updateSliderItemPlayState(item));
       video.addEventListener('pause', () => updateSliderItemPlayState(item));
-      video.addEventListener('volumechange', () => updateSliderItemMuteState(item));
+      video.addEventListener('volumechange', () =>
+        updateSliderItemMuteState(item),
+      );
     });
 
     swiperInstance.on('slideChangeTransitionEnd', onSlideChange);
@@ -313,7 +317,15 @@ function initSliderVideo() {
   });
 }
 
+function updateCurrentYear() {
+  const year = new Date().getFullYear();
+  const yearElement = document.querySelector('.year-current');
+  if (!yearElement) return;
+  yearElement.textContent = year;
+}
+
 initMobileMenu();
+updateCurrentYear();
 initVideoControls();
 initShopSlider();
 initSliderVideo();

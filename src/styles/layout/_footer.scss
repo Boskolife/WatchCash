@@ -1,1 +1,166 @@
-#footer {}
+.footer {
+  margin-top: 16px;
+  padding: 48px 0;
+  background:
+    url('/images/bg-lines-2.svg') center / cover no-repeat,
+    map-get($brand, 500);
+  @include adaptive-value('border-radius', 76, 40, 1);
+
+  @include media('<tablet') {
+    padding: 24px 0;
+  }
+
+  &__top {
+    display: flex;
+    align-items: flex-start;
+    @include adaptive-value('gap', 74, 32, 1);
+    margin-bottom: 26px;
+
+    @include media('<desktop') {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+
+  &__col {
+    &.col-menu {
+      width: 200px;
+
+      @include media('<desktop') {
+        width: 45%;
+        text-align: center;
+      }
+
+      @include media ("<phone") {
+        width: 100%;
+      }
+    }
+
+    &.col-social {
+      margin-left: auto;
+
+      @include media('<desktop') {
+        margin: 0 auto;
+      }
+    }
+
+    &-title {
+        font-weight: 600;
+      color: map-get($neutral, 100);
+      @include adaptive-value('margin-bottom', 16, 12, 1);
+
+      br{
+        @include media ("<desktop") {
+            display: none;
+        }
+      }
+    }
+
+    &-content {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 24px;
+
+      @include media('<desktop') {
+        justify-content: center;
+      }
+      
+      @include media ("<phone") {
+        flex-direction: column;
+      }
+
+      .footer__col-title {
+        margin: 0;
+      }
+    }
+
+    &-social {
+      display: flex;
+      align-items: center;
+
+      &-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+      }
+
+      &-icon {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+      }
+    }
+  }
+
+  &__nav {
+    &-list {
+      display: flex;
+      flex-direction: column;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      @include media('<desktop') {
+        align-items: center;
+      }
+    }
+
+    &-item {
+      padding: 16px 12px 16px 0;
+
+      @include media ("<desktop") {
+        padding: 16px 12px;
+      }
+    }
+
+    &-link {
+      font-size: 16px;
+      color: map-get($neutral, 100);
+      text-transform: uppercase;
+
+      &:hover {
+        color: map-get($neutral, 100);
+      }
+    }
+  }
+
+  &__payment-methods {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    @include adaptive-value('margin-top', 100, 20, 1);
+
+    @include media ("<phone") {
+        justify-content: center;
+    }
+
+    &-item {
+      width: 56px;
+      height: 40px;
+    }
+  }
+
+  &__bottom {
+    &-logo {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-bottom: 24px;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &-text {
+      font-size: 12px;
+      color: map-get($neutral, 300);
+      text-align: center;
+    }
+  }
+}
