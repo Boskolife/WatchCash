@@ -1,3 +1,24 @@
+// Visually hidden until focused, for keyboard users
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 12px;
+  padding: 12px 16px;
+  background-color: #000;
+  color: #fff;
+  z-index: 10000;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: top 0.2s ease;
+
+  &:focus {
+    top: 12px;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+}
+
 .container {
   max-width: 1369px;
   width: 100%;

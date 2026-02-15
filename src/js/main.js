@@ -23,6 +23,7 @@ function initContactModal() {
     modal.setAttribute('aria-hidden', 'false');
     openBtns.forEach((btn) => btn.setAttribute('aria-expanded', 'true'));
     document.body.classList.add(BODY_MODAL_OPEN_CLASS);
+    closeBtn?.focus();
   }
 
   function closeModal() {
