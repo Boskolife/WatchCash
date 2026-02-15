@@ -1,22 +1,7 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WatchCash</title>
-  <!-- Theme-aware favicons: dark/light based on prefers-color-scheme -->
-  <link rel="icon" type="image/svg+xml" href="/favicon-dark/favicon.svg" media="(prefers-color-scheme: dark)">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-white/favicon-32x32.png" media="(prefers-color-scheme: light)">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-white/favicon-16x16.png" media="(prefers-color-scheme: light)">
-  <!-- Default fallback for browsers without media support -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-white/favicon-32x32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon-white/apple-touch-icon.png" media="(prefers-color-scheme: light)">
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon-dark/apple-touch-icon.png" media="(prefers-color-scheme: dark)">
-  <!-- Single manifest (theme_color in manifest; icons inside can vary by build if needed) -->
-  <link rel="manifest" href="/favicon-white/site.webmanifest">
-  <link rel="stylesheet" href="/styles/main.scss">
-</head>
+{{> head }}
 
 <body>
   {{> header }}
@@ -31,6 +16,7 @@
     {{> section-result }}
     {{> section-reviews }}
     {{> section-team }}
+    {{> section-partner }}
     {{> section-social-media }}
   </main>
   {{> mobile-menu }}
