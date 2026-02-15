@@ -16,16 +16,17 @@
   &__description {
     @include adaptive-value('margin-bottom', 32, 24, 1);
 
-    br{
-        @include media ("<phone") {
-            display: none;
-        }
+    br {
+      @include media('<phone') {
+        display: none;
+      }
     }
   }
 
   &__button {
     width: max-content;
     margin: 0 auto;
+    padding: 16px 24px;
     @include adaptive-value('margin-bottom', 64, 40, 1);
   }
 
@@ -73,7 +74,7 @@
       width: auto;
       height: 200px;
 
-      @include media ("<phone") {
+      @include media('<phone') {
         height: 180px;
       }
 

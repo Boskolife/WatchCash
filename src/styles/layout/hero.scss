@@ -33,6 +33,67 @@
     pointer-events: none;
   }
 
+  .container {
+    position: relative;
+  }
+
+  &__banner {
+    position: absolute;
+    bottom: 12%;
+    right: 0;
+    max-width: 410px;
+    width: 100%;
+    height: auto;
+    z-index: 2;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    padding: 24px;
+    border-radius: 28px;
+    background: #fcfcfd47;
+    backdrop-filter: blur(32px);
+
+    @include media('<tablet') {
+      display: none;
+    }
+
+    &-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 16px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    &-label {
+      display: block;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: map-get($neutral, 100);
+      text-transform: uppercase;
+      @include px-to-percent-line-height(28px, 24px);
+      max-width: 130px;
+    }
+
+    &-button {
+      width: 205px;
+    }
+  }
+
   &__bg {
     position: absolute;
     top: 0;
@@ -99,7 +160,6 @@
     max-width: 500px;
     margin: 0 auto;
     @include adaptive-value('margin-bottom', 32, 24, 1);
-    @include adaptive-value('margin-top', 16, 12, 1);
 
     u {
       text-transform: uppercase;
@@ -115,6 +175,18 @@
 
     @include media('<tablet') {
       gap: 12px;
+    }
+
+    .btn {
+      padding: 17px 25px;
+
+      @include media ("<tablet") {
+        padding: 16px 20px;
+      }
+
+      &_primary {
+        border: 1px solid map-get($neutral, 100);
+      }
     }
   }
 

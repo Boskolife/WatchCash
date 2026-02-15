@@ -42,7 +42,8 @@
                 <div class="sell__form-wrapper">
                     <form class="sell__form">
                         <label for="sell-form-name">Email address
-                            <input type="email" id="sell-form-name" name="sell-form-name" placeholder="Enter your email address">
+                            <input type="email" id="sell-form-name" name="sell-form-name"
+                                placeholder="Enter your email address">
                         </label>
                         <label for="sell-form-email">Brand Name
                             <input type="text" id="sell-form-email" name="sell-form-email"
@@ -55,7 +56,9 @@
                 </div>
             </div>
             <div class="sell__right-col">
-                {{{picture "/images/sell-img.png" alt="Sell image" class="sell__img"}}}
+                {{{picture "/images/sell-img.png" alt="Sell image" class="sell__img"
+                sources=(array (object media="(max-width: 480px)" srcset="/images/sell-img-mob.png"))
+                }}}
             </div>
         </div>
     </div>

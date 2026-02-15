@@ -15,6 +15,7 @@
 
     @include media('<desktop') {
       grid-template-columns: 1fr;
+      padding-bottom: 0;
     }
   }
 

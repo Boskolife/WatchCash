@@ -9,7 +9,7 @@
     display: grid;
     grid-template-columns: auto auto;
     justify-content: space-between;
-    gap: 30px;
+    gap: 12px 30px;
     @include adaptive-value('margin-bottom', 60, 40, 1);
 
     @include media('<desktop') {
@@ -48,7 +48,7 @@
 
   &__content {
     display: grid;
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: 1fr auto;
     gap: 32px;
     justify-content: space-between;
 
@@ -111,6 +111,7 @@
     &-text {
       @include px-to-percent-line-height(22px, 18px);
       text-transform: uppercase;
+      font-weight: 500;
       color: map-get($neutral, 100);
       @include adaptive-value('font-size', 18, 14, 1);
     }
@@ -128,8 +129,8 @@
     flex-direction: column;
     gap: 16px;
 
-    @include media ("<tablet") {
-        gap: 12px;
+    @include media('<tablet') {
+      gap: 12px;
     }
 
     label {
@@ -167,7 +168,7 @@
     button {
       margin-top: 24px;
 
-      @include media ("<tablet") {
+      @include media('<tablet') {
         margin-top: 12px;
       }
     }
