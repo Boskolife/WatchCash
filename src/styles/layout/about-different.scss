@@ -61,8 +61,9 @@
     align-items: center;
     background: linear-gradient(180deg, #d8dde2 0%, #fcfcfd 99.04%);
     border-radius: 20px;
-    padding: 24px 17px;
+    padding: 24px 14px;
     width: 100%;
+
     @include media('<tablet') {
       padding: 24px 12px;
     }
