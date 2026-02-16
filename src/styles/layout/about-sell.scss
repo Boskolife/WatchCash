@@ -1,0 +1,52 @@
+.about-sell {
+  padding-bottom: 80px;
+  border-radius: 76px 76px 0 0;
+  overflow: hidden;
+
+  @include media('<tablet') {
+    border-radius: 0;
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    @include adaptive-value('margin-bottom', 80, 40, 1);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__inner {
+    text-align: center;
+  }
+
+  &__title {
+    @include adaptive-value('margin-bottom', 20, 12, 1);
+
+    @include media ("<phone") {
+        max-width: 250px;
+        margin-inline: auto;
+    }
+  }
+
+  &__text {
+    @include adaptive-value('font-size', 24, 16, 1);
+    @include px-to-percent-line-height(32px, 24px);
+    max-width: 330px;
+    margin-inline: auto;
+    margin-bottom: 32px;
+
+    @include media ("<tablet") {
+        max-width: 220px;
+    }
+  }
+
+  &__button {
+    padding: 12px 24px;
+    margin: 0 auto;
+  }
+}
