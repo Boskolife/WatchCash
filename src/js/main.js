@@ -1,6 +1,6 @@
 // core version + navigation, pagination modules:
 import Swiper from 'swiper';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Autoplay } from 'swiper/modules';
 // import Swiper and modules styles
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -158,6 +158,49 @@ function initVideoControls() {
   document.querySelectorAll('[data-video-controls]').forEach(initVideoControlsForContainer);
 }
 
+const ABOUT_BRANDS_BREAKPOINT = 768;
+
+function initAboutBrandsSlider() {
+  const el = document.querySelector('.about-brands__slider');
+  if (!el) return;
+
+  let swiperInstance = null;
+  const mediaQuery = window.matchMedia(`(min-width: ${ABOUT_BRANDS_BREAKPOINT}px)`);
+
+  function initSwiper() {
+    if (swiperInstance) return;
+    swiperInstance = new Swiper(el, {
+      modules: [Autoplay],
+      loop: true,
+      slidesPerView: 'auto',
+      spaceBetween: 40,
+      speed: 3000,
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false,
+      },
+      allowTouchMove: false,
+    });
+  }
+
+  function destroySwiper() {
+    if (!swiperInstance) return;
+    swiperInstance.destroy(true, true);
+    swiperInstance = null;
+  }
+
+  function handleBreakpointChange() {
+    if (mediaQuery.matches) {
+      initSwiper();
+    } else {
+      destroySwiper();
+    }
+  }
+
+  mediaQuery.addEventListener('change', handleBreakpointChange);
+  handleBreakpointChange();
+}
+
 function initShopSlider() {
   const shopSlider = new Swiper('.shop__slider', {
     modules: [Navigation],
@@ -280,5 +323,6 @@ initMobileMenu();
 initContactModal();
 updateCurrentYear();
 initVideoControls();
+initAboutBrandsSlider();
 initShopSlider();
 initSliderVideo();
