@@ -20,6 +20,20 @@
     margin-inline: auto;
     @include adaptive-value('margin-bottom', 60, 40, 1);
     color: map-get($neutral, 400);
+
+    &.desk {
+      @include media('<phone') {
+        display: none;
+      }
+    }
+
+    &.mob {
+      display: none;
+
+      @include media('<phone') {
+        display: block;
+      }
+    }
   }
 
   &__inner {
@@ -28,6 +42,7 @@
     align-items: center;
     justify-content: center;
     @include adaptive-value('gap', 20, 16, 1);
+    @include adaptive-value('margin-bottom', 60, 40, 1);
   }
 
   &__item {
@@ -38,6 +53,22 @@
     @include adaptive-value('gap', 8, 4, 1);
     width: 100%;
     text-align: center;
+
+    &.first {
+      .about-how__item-description {
+        @include media('<phone') {
+          max-width: 300px;
+        }
+      }
+    }
+
+    &.second {
+      .about-how__item-description {
+        @include media('<phone') {
+          max-width: 300px;
+        }
+      }
+    }
 
     &-number {
       @include adaptive-value('font-size', 64, 40, 1);
@@ -54,9 +85,13 @@
       text-transform: uppercase;
       letter-spacing: -0.02em;
 
-      br{
-        @include media ("<tablet") {
-            display: none;
+      @include media('<phone') {
+        text-transform: capitalize;
+      }
+
+      br {
+        @include media('<tablet') {
+          display: none;
         }
       }
     }
@@ -67,8 +102,13 @@
     height: 124px;
     border-left: 1px dashed map-get($neutral, 400);
 
-    @include media ("<phone") {
-        height: 100px;
+    @include media('<phone') {
+      height: 100px;
     }
+  }
+
+  &__button {
+    width: max-content;
+    margin-inline: auto;
   }
 }
