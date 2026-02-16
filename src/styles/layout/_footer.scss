@@ -31,7 +31,7 @@
         text-align: center;
       }
 
-      @include media ("<phone") {
+      @include media('<phone') {
         width: 100%;
       }
     }
@@ -45,13 +45,18 @@
     }
 
     &-title {
-        font-weight: 600;
+      @include adaptive-value('font-size', 24, 20, 1);
+      font-weight: 600;
       color: map-get($neutral, 100);
       @include adaptive-value('margin-bottom', 16, 12, 1);
 
-      br{
-        @include media ("<desktop") {
-            display: none;
+      @include media('<phone') {
+        letter-spacing: -0.02em;
+      }
+
+      br {
+        @include media('<desktop') {
+          display: none;
         }
       }
     }
@@ -65,8 +70,8 @@
       @include media('<desktop') {
         justify-content: center;
       }
-      
-      @include media ("<phone") {
+
+      @include media('<phone') {
         flex-direction: column;
       }
 
@@ -111,7 +116,7 @@
     &-item {
       padding: 16px 12px 16px 0;
 
-      @include media ("<desktop") {
+      @include media('<desktop') {
         padding: 16px 12px;
       }
     }
@@ -134,8 +139,8 @@
     gap: 10px;
     @include adaptive-value('margin-top', 100, 20, 1);
 
-    @include media ("<phone") {
-        justify-content: center;
+    @include media('<phone') {
+      justify-content: center;
     }
 
     &-item {
