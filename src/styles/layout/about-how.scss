@@ -1,0 +1,74 @@
+.about-how {
+  padding: 80px 0;
+  background:
+    url('/images/bg-lines-2.svg') center / cover no-repeat,
+    map-get($brand, 500);
+  @include adaptive-value('border-radius', 76, 40, 1);
+
+  &__title {
+    text-align: center;
+    @include adaptive-value('margin-bottom', 16, 12, 1);
+    color: map-get($neutral, 100);
+  }
+
+  &__description {
+    text-align: center;
+    font-size: 16px;
+    @include px-to-percent-line-height(20px, 16px);
+    max-width: 470px;
+    width: 100%;
+    margin-inline: auto;
+    @include adaptive-value('margin-bottom', 60, 40, 1);
+    color: map-get($neutral, 400);
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    @include adaptive-value('gap', 20, 16, 1);
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    @include adaptive-value('gap', 8, 4, 1);
+    width: 100%;
+    text-align: center;
+
+    &-number {
+      @include adaptive-value('font-size', 64, 40, 1);
+      font-weight: 600;
+      color: map-get($neutral, 100);
+      text-transform: uppercase;
+    }
+
+    &-description {
+      font-size: 24px;
+      @include px-to-percent-line-height(32px, 24px);
+      color: map-get($neutral, 100);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+
+      br{
+        @include media ("<tablet") {
+            display: none;
+        }
+      }
+    }
+  }
+
+  .divider {
+    width: 1px;
+    height: 124px;
+    border-left: 1px dashed map-get($neutral, 400);
+
+    @include media ("<phone") {
+        height: 100px;
+    }
+  }
+}
