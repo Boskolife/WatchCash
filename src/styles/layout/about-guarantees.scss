@@ -1,0 +1,38 @@
+.about-guarantees {
+  padding: 80px 0;
+  background:
+    url('/images/bg-lines-2.svg') center / cover no-repeat,
+    map-get($brand, 500);
+  @include adaptive-value('border-radius', 76, 40, 1);
+
+  &__title {
+    color: map-get($neutral, 100);
+    text-align: center;
+    @include adaptive-value('margin-bottom', 60, 40, 1);
+  }
+
+  &__block {
+    text-align: center;
+    max-width: 250px;
+    width: 100%;
+    margin-inline: auto;
+
+    &:not(:last-child) {
+      @include adaptive-value('margin-bottom', 40, 24, 1);
+    }
+
+    b {
+      display: block;
+      color: map-get($neutral, 100);
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-weight: 400;
+      color: map-get($neutral, 500);
+      @include px-to-percent-line-height(20px, 16px);
+    }
+  }
+}
