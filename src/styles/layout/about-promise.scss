@@ -78,6 +78,7 @@
 
     &-title {
       color: map-get($neutral, 100);
+      font-weight: 700;
       max-width: 230px;
       width: 100%;
       @include adaptive-value('font-size', 32, 24, 1);

@@ -41,14 +41,14 @@
     @include px-to-percent-line-height(32px, 24px);
     max-width: 450px;
     margin-inline: auto;
-    @include adaptive-value('margin-bottom', 40, 20, 1);
+    @include adaptive-value('margin-bottom', 60, 40, 1);
   }
 
   &__content {
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 40px 30px;
   }
 
   &__item {
