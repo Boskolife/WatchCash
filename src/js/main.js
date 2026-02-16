@@ -84,95 +84,15 @@ function initMobileMenu() {
   });
 }
 
-function initVideoControls() {
-  const videoContainer = document.querySelector('.who__video');
-  if (!videoContainer) return;
-
-  const video = videoContainer.querySelector('video');
-  const playBtn = videoContainer.querySelector('.who__btn.play');
-  const muteBtn = videoContainer.querySelector('.who__btn.mute');
-
-  if (!video || !playBtn || !muteBtn) return;
-
-  const playIcon = playBtn.querySelector('.play-icon');
-  const pauseIcon = playBtn.querySelector('.pause-icon');
-  const unmuteIcon = muteBtn.querySelector('.unmute-icon');
-  const muteIcon = muteBtn.querySelector('.mute-icon');
-
-  // Update play/pause button state
-  function updatePlayButton() {
-    if (video.paused) {
-      // Video is paused - show play icon
-      if (playIcon) playIcon.style.display = 'block';
-      if (pauseIcon) pauseIcon.style.display = 'none';
-      playBtn.setAttribute('aria-label', 'Play video');
-    } else {
-      // Video is playing - show pause icon
-      if (playIcon) playIcon.style.display = 'none';
-      if (pauseIcon) pauseIcon.style.display = 'block';
-      playBtn.setAttribute('aria-label', 'Pause video');
-    }
-  }
-
-  // Update mute button state
-  function updateMuteButton() {
-    if (video.muted) {
-      // Video is muted - show unmute icon (to enable sound)
-      if (muteIcon) muteIcon.style.display = 'none';
-      if (unmuteIcon) unmuteIcon.style.display = 'block';
-      muteBtn.setAttribute('aria-label', 'Unmute video');
-    } else {
-      // Video is unmuted - show mute icon (to disable sound)
-      if (muteIcon) muteIcon.style.display = 'block';
-      if (unmuteIcon) unmuteIcon.style.display = 'none';
-      muteBtn.setAttribute('aria-label', 'Mute video');
-    }
-  }
-
-  // Initialize button states after video is loaded
-  function initializeControls() {
-    updatePlayButton();
-    updateMuteButton();
-  }
-
-  // Wait for video to be ready
-  if (video.readyState >= 2) {
-    // Video is already loaded
-    initializeControls();
-  } else {
-    // Wait for video to load
-    video.addEventListener('loadeddata', initializeControls);
-  }
-
-  // Play/Pause toggle
-  playBtn.addEventListener('click', () => {
-    if (video.paused) {
-      video.play().catch((error) => {
-        console.error('Error playing video:', error);
-      });
-    } else {
-      video.pause();
-    }
-  });
-
-  // Mute/Unmute toggle
-  muteBtn.addEventListener('click', () => {
-    video.muted = !video.muted;
-  });
-
-  // Update buttons when video state changes
-  video.addEventListener('play', updatePlayButton);
-  video.addEventListener('pause', updatePlayButton);
-  video.addEventListener('volumechange', updateMuteButton);
-}
-
-function initAboutSellerVideoControls() {
-  const videoContainer = document.querySelector('.about-different.seller .about-different__video');
-  if (!videoContainer) return;
-
-  const video = videoContainer.querySelector('video');
-  const playBtn = videoContainer.querySelector('.about-different__btn.play');
-  const muteBtn = videoContainer.querySelector('.about-different__btn.mute');
+/**
+ * Initializes play/pause and mute/unmute for a single video control block.
+ * Container must contain: video, button with class "play" (with .play-icon, .pause-icon),
+ * button with class "mute" (with .mute-icon, .unmute-icon). Uses .is-hidden to toggle icons.
+ */
+function initVideoControlsForContainer(container) {
+  const video = container.querySelector('video');
+  const playBtn = container.querySelector('button.play');
+  const muteBtn = container.querySelector('button.mute');
 
   if (!video || !playBtn || !muteBtn) return;
 
@@ -231,6 +151,11 @@ function initAboutSellerVideoControls() {
   video.addEventListener('play', updatePlayButton);
   video.addEventListener('pause', updatePlayButton);
   video.addEventListener('volumechange', updateMuteButton);
+}
+
+/** Initializes all video control blocks: data-video-controls containers and slider items. */
+function initVideoControls() {
+  document.querySelectorAll('[data-video-controls]').forEach(initVideoControlsForContainer);
 }
 
 function initShopSlider() {
@@ -302,40 +227,6 @@ const SLIDER_VIDEO_BREAKPOINTS = {
   },
 };
 
-function updateSliderItemPlayState(item) {
-  const video = item.querySelector('video');
-  const playBtn = item.querySelector('.slider-video__btn.play');
-  if (!video || !playBtn) return;
-  const playIcon = playBtn.querySelector('.play-icon');
-  const pauseIcon = playBtn.querySelector('.pause-icon');
-  if (video.paused) {
-    playIcon?.classList.remove('is-hidden');
-    pauseIcon?.classList.add('is-hidden');
-    playBtn.setAttribute('aria-label', 'Play video');
-  } else {
-    playIcon?.classList.add('is-hidden');
-    pauseIcon?.classList.remove('is-hidden');
-    playBtn.setAttribute('aria-label', 'Pause video');
-  }
-}
-
-function updateSliderItemMuteState(item) {
-  const video = item.querySelector('video');
-  const muteBtn = item.querySelector('.slider-video__btn.mute');
-  if (!video || !muteBtn) return;
-  const muteIcon = muteBtn.querySelector('.mute-icon');
-  const unmuteIcon = muteBtn.querySelector('.unmute-icon');
-  if (video.muted) {
-    muteIcon?.classList.add('is-hidden');
-    unmuteIcon?.classList.remove('is-hidden');
-    muteBtn.setAttribute('aria-label', 'Unmute video');
-  } else {
-    muteIcon?.classList.remove('is-hidden');
-    unmuteIcon?.classList.add('is-hidden');
-    muteBtn.setAttribute('aria-label', 'Mute video');
-  }
-}
-
 function initSliderVideo() {
   document.querySelectorAll('.slider-video').forEach((section) => {
     const container = section.querySelector('.swiper_video');
@@ -354,7 +245,7 @@ function initSliderVideo() {
     });
 
     function pauseAllVideos() {
-      container.querySelectorAll('video').forEach((video) => video.pause());
+      container.querySelectorAll('video').forEach((v) => v.pause());
     }
 
     function playActiveSlideVideo() {
@@ -371,52 +262,10 @@ function initSliderVideo() {
       playActiveSlideVideo();
     }
 
-    container.addEventListener('click', (e) => {
-      const playBtn = e.target.closest('.slider-video__btn.play');
-      const muteBtn = e.target.closest('.slider-video__btn.mute');
-      const item = e.target.closest('.slider-video__item');
-      if (!item) return;
-
-      if (playBtn) {
-        const video = item.querySelector('video');
-        if (video) {
-          if (video.paused) {
-            video
-              .play()
-              .catch((err) => console.error('Video play failed:', err));
-          } else {
-            video.pause();
-          }
-          updateSliderItemPlayState(item);
-        }
-      }
-
-      if (muteBtn) {
-        const video = item.querySelector('video');
-        if (video) {
-          video.muted = !video.muted;
-          updateSliderItemMuteState(item);
-        }
-      }
-    });
-
-    container.querySelectorAll('.slider-video__item').forEach((item) => {
-      const video = item.querySelector('video');
-      if (!video) return;
-      video.addEventListener('play', () => updateSliderItemPlayState(item));
-      video.addEventListener('pause', () => updateSliderItemPlayState(item));
-      video.addEventListener('volumechange', () =>
-        updateSliderItemMuteState(item),
-      );
-    });
+    container.querySelectorAll('.slider-video__item').forEach(initVideoControlsForContainer);
 
     swiperInstance.on('slideChangeTransitionEnd', onSlideChange);
     onSlideChange();
-
-    container.querySelectorAll('.slider-video__item').forEach((item) => {
-      updateSliderItemPlayState(item);
-      updateSliderItemMuteState(item);
-    });
   });
 }
 
@@ -431,6 +280,5 @@ initMobileMenu();
 initContactModal();
 updateCurrentYear();
 initVideoControls();
-initAboutSellerVideoControls();
 initShopSlider();
 initSliderVideo();
