@@ -166,6 +166,73 @@ function initVideoControls() {
   video.addEventListener('volumechange', updateMuteButton);
 }
 
+function initAboutSellerVideoControls() {
+  const videoContainer = document.querySelector('.about-different.seller .about-different__video');
+  if (!videoContainer) return;
+
+  const video = videoContainer.querySelector('video');
+  const playBtn = videoContainer.querySelector('.about-different__btn.play');
+  const muteBtn = videoContainer.querySelector('.about-different__btn.mute');
+
+  if (!video || !playBtn || !muteBtn) return;
+
+  const playIcon = playBtn.querySelector('.play-icon');
+  const pauseIcon = playBtn.querySelector('.pause-icon');
+  const unmuteIcon = muteBtn.querySelector('.unmute-icon');
+  const muteIcon = muteBtn.querySelector('.mute-icon');
+
+  function updatePlayButton() {
+    if (video.paused) {
+      playIcon?.classList.remove('is-hidden');
+      pauseIcon?.classList.add('is-hidden');
+      playBtn.setAttribute('aria-label', 'Play video');
+    } else {
+      playIcon?.classList.add('is-hidden');
+      pauseIcon?.classList.remove('is-hidden');
+      playBtn.setAttribute('aria-label', 'Pause video');
+    }
+  }
+
+  function updateMuteButton() {
+    if (video.muted) {
+      muteIcon?.classList.add('is-hidden');
+      unmuteIcon?.classList.remove('is-hidden');
+      muteBtn.setAttribute('aria-label', 'Unmute video');
+    } else {
+      muteIcon?.classList.remove('is-hidden');
+      unmuteIcon?.classList.add('is-hidden');
+      muteBtn.setAttribute('aria-label', 'Mute video');
+    }
+  }
+
+  function initializeControls() {
+    updatePlayButton();
+    updateMuteButton();
+  }
+
+  if (video.readyState >= 2) {
+    initializeControls();
+  } else {
+    video.addEventListener('loadeddata', initializeControls);
+  }
+
+  playBtn.addEventListener('click', () => {
+    if (video.paused) {
+      video.play().catch((err) => console.error('Error playing video:', err));
+    } else {
+      video.pause();
+    }
+  });
+
+  muteBtn.addEventListener('click', () => {
+    video.muted = !video.muted;
+  });
+
+  video.addEventListener('play', updatePlayButton);
+  video.addEventListener('pause', updatePlayButton);
+  video.addEventListener('volumechange', updateMuteButton);
+}
+
 function initShopSlider() {
   const shopSlider = new Swiper('.shop__slider', {
     modules: [Navigation],
@@ -364,5 +431,6 @@ initMobileMenu();
 initContactModal();
 updateCurrentYear();
 initVideoControls();
+initAboutSellerVideoControls();
 initShopSlider();
 initSliderVideo();

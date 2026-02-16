@@ -5,6 +5,10 @@
   @include adaptive-value('border-radius', 76, 40, 1);
   overflow: hidden;
 
+  @include media('>1440px') {
+    height: 100vh;
+  }
+
   @include media('<phone') {
     height: auto;
   }

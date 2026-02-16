@@ -5,6 +5,23 @@
     map-get($brand, 500);
   @include adaptive-value('border-radius', 76, 40, 1);
 
+  &.seller {
+    margin-top: 16px;
+
+    .about-different__item {
+      &:nth-child(1) {
+        .about-different__item-description {
+          max-width: 256px;
+        }
+      }
+      &:nth-child(2) {
+        .about-different__item-description {
+          max-width: 250px;
+        }
+      }
+    }
+  }
+
   &__title {
     text-align: center;
     color: map-get($neutral, 100);
@@ -13,12 +30,12 @@
 
   &__inner {
     display: grid;
-    grid-template-columns: auto auto;
-    justify-content: space-between;
-    gap: 30px;
+    grid-template-columns: 1fr 1fr;
+    @include adaptive-value('gap', 64, -64, 1);
 
     @include media('<desktop') {
       grid-template-columns: 1fr;
+      row-gap: 40px;
     }
   }
 
@@ -44,8 +61,8 @@
     align-items: center;
     background: linear-gradient(180deg, #d8dde2 0%, #fcfcfd 99.04%);
     border-radius: 20px;
-    padding: 32px 17px;
-
+    padding: 24px 17px;
+    width: 100%;
     @include media('<tablet') {
       padding: 24px 12px;
     }
@@ -150,6 +167,7 @@
   }
 
   &__img {
+    display: block;
     max-width: 628px;
     width: 100%;
     height: 100%;
@@ -168,6 +186,66 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+  }
+
+  &__video {
+    width: 100%;
+    max-width: 628px;
+    aspect-ratio: 628 / 788;
+    border-radius: 40px;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+
+    @include media('<desktop') {
+      max-width: 100%;
+    }
+
+    @include media('<phone') {
+      height: 348px;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: none;
+    background-color: map-get($brand, 500);
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    position: absolute;
+    border-radius: 50%;
+
+    &.play {
+      top: 16px;
+      left: 16px;
+    }
+
+    &.mute {
+      top: 16px;
+      right: 16px;
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+
+      &.is-hidden {
+        display: none;
+      }
     }
   }
 }
