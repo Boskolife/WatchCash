@@ -298,25 +298,48 @@ function initSliderVideo() {
       container.querySelectorAll('video').forEach((v) => v.pause());
     }
 
+    function loadSlideVideos(activeIndex) {
+      const slides = container.querySelectorAll('.swiper-slide');
+      slides.forEach((slide, index) => {
+        const video = slide.querySelector('video');
+        // Load video for active slide and adjacent slides (prev and next)
+        if (
+          video &&
+          (index === activeIndex ||
+            index === activeIndex - 1 ||
+            index === activeIndex + 1)
+        ) {
+          loadSliderVideo(video);
+        }
+      });
+    }
+
     function playActiveSlideVideo() {
       const activeSlide = container.querySelector('.swiper-slide-active');
       if (!activeSlide) return;
       const video = activeSlide.querySelector('video');
       if (video) {
+        loadSliderVideo(video);
         video.play().catch((err) => console.error('Video play failed:', err));
       }
     }
 
     function onSlideChange() {
       pauseAllVideos();
+      const activeIndex = swiperInstance.activeIndex;
+      loadSlideVideos(activeIndex);
       playActiveSlideVideo();
     }
 
-    container
-      .querySelectorAll('.slider-video__item')
-      .forEach(initVideoControlsForContainer);
+    // Video controls disabled
+    // container
+    //   .querySelectorAll('.slider-video__item')
+    //   .forEach(initVideoControlsForContainer);
 
     swiperInstance.on('slideChangeTransitionEnd', onSlideChange);
+    // Load initial active slide video
+    const initialIndex = swiperInstance.activeIndex;
+    loadSlideVideos(initialIndex);
     onSlideChange();
   });
 }
@@ -326,6 +349,62 @@ function updateCurrentYear() {
   const yearElement = document.querySelector('.year-current');
   if (!yearElement) return;
   yearElement.textContent = year;
+}
+
+function loadSliderVideo(video) {
+  if (video && video.getAttribute('preload') === 'none') {
+    video.setAttribute('preload', 'auto');
+    video.load();
+  }
+}
+
+function initVideoLazyLoading() {
+  const videos = document.querySelectorAll('video');
+  if (!videos.length) return;
+
+  // Set preload="none" for videos without autoplay to prevent immediate loading
+  videos.forEach((video) => {
+    const hasAutoplay = video.hasAttribute('autoplay');
+    const hasPreload = video.hasAttribute('preload');
+
+    // Only set preload="none" if video doesn't have autoplay and preload is not already set
+    if (!hasAutoplay && !hasPreload) {
+      video.setAttribute('preload', 'none');
+    }
+  });
+
+  // Use Intersection Observer for videos outside sliders
+  const observerOptions = {
+    root: null,
+    rootMargin: '50px',
+    threshold: 0.1,
+  };
+
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const video = entry.target;
+        // Load video when it enters viewport
+        if (video.getAttribute('preload') === 'none') {
+          video.setAttribute('preload', 'auto');
+          video.load();
+        }
+        videoObserver.unobserve(video);
+      }
+    });
+  }, observerOptions);
+
+  // Observe videos that are not in sliders and don't have autoplay
+  videos.forEach((video) => {
+    const isInSlider =
+      video.closest('.swiper-slide') || video.closest('.slider-video');
+    const hasAutoplay = video.hasAttribute('autoplay');
+
+    // Only observe videos outside sliders and without autoplay
+    if (!isInSlider && !hasAutoplay) {
+      videoObserver.observe(video);
+    }
+  });
 }
 
 const ABOUT_SHIPPING_BREAKPOINT = 768;
@@ -369,10 +448,10 @@ function initAboutShippingSlider() {
   handleBreakpointChange();
 }
 
-
 initMobileMenu();
 initContactModal();
 updateCurrentYear();
+initVideoLazyLoading();
 initVideoControls();
 initAboutBrandsSlider();
 initShopSlider();
