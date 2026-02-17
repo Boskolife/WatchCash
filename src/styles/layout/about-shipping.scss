@@ -1,25 +1,16 @@
 .about-shipping {
   padding: 80px 0;
+  overflow: hidden;
 
   &.why {
     .about-shipping__item-description {
       max-width: 350px;
     }
 
-    .about-shipping__item {
+    .swiper-slide {
       &:nth-child(1) {
         .about-shipping__item-image {
-          background-color: none;
-          padding: 0;
-
-          img {
-            object-fit: cover;
-          }
-        }
-      }
-      &:nth-child(3) {
-        .about-shipping__item-image {
-          background-color: none;
+          background-color: transparent;
           padding: 0;
 
           img {
@@ -44,32 +35,33 @@
     @include adaptive-value('margin-bottom', 60, 40, 1);
   }
 
-  &__content {
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 40px 30px;
+  &__slider {
+    max-width: 1369px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 12px !important;
+    overflow: visible !important;
   }
 
-  &__item {
-    text-align: center;
-    width: 47.5%;
-
+  .swiper-wrapper {
     @include media('<tablet') {
-      width: 100%;
+      flex-direction: column;
+      gap: 16px;
     }
+  }
 
+  .swiper-slide {
     &:nth-child(1) {
       .about-shipping__item-image {
         background-color: map-get($brand, 500);
-        padding: 36px 0;
-
-        @include media('<phone') {
-          padding: 16px 0;
-        }
 
         img {
+          height: 330px;
           object-fit: contain;
+
+          @include media('<phone') {
+            height: 124px;
+          }
         }
       }
     }
@@ -77,19 +69,26 @@
     &:nth-child(3) {
       .about-shipping__item-image {
         background-color: map-get($brand, 500);
-        padding: 36px 0;
-
-        @include media('<phone') {
-          padding: 16px 0;
-        }
 
         img {
+          max-width: 425px;
           object-fit: contain;
+
+          @include media('<tablet') {
+            height: 130px;
+          }
         }
       }
     }
+  }
+
+  &__item {
+    text-align: center;
 
     &-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
       height: 402px;
       border-radius: 24px;
@@ -99,6 +98,16 @@
       @include media('<phone') {
         height: 156px;
       }
+    }
+
+    &-img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 24px;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
 
       img {
         width: 100%;

@@ -38,7 +38,10 @@ function initContactModal() {
   overlay?.addEventListener('click', closeModal);
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains(CONTACT_MODAL_OPEN_CLASS)) {
+    if (
+      e.key === 'Escape' &&
+      modal.classList.contains(CONTACT_MODAL_OPEN_CLASS)
+    ) {
       closeModal();
     }
   });
@@ -155,7 +158,9 @@ function initVideoControlsForContainer(container) {
 
 /** Initializes all video control blocks: data-video-controls containers and slider items. */
 function initVideoControls() {
-  document.querySelectorAll('[data-video-controls]').forEach(initVideoControlsForContainer);
+  document
+    .querySelectorAll('[data-video-controls]')
+    .forEach(initVideoControlsForContainer);
 }
 
 const ABOUT_BRANDS_BREAKPOINT = 768;
@@ -165,7 +170,9 @@ function initAboutBrandsSlider() {
   if (!el) return;
 
   let swiperInstance = null;
-  const mediaQuery = window.matchMedia(`(min-width: ${ABOUT_BRANDS_BREAKPOINT}px)`);
+  const mediaQuery = window.matchMedia(
+    `(min-width: ${ABOUT_BRANDS_BREAKPOINT}px)`,
+  );
 
   function initSwiper() {
     if (swiperInstance) return;
@@ -305,7 +312,9 @@ function initSliderVideo() {
       playActiveSlideVideo();
     }
 
-    container.querySelectorAll('.slider-video__item').forEach(initVideoControlsForContainer);
+    container
+      .querySelectorAll('.slider-video__item')
+      .forEach(initVideoControlsForContainer);
 
     swiperInstance.on('slideChangeTransitionEnd', onSlideChange);
     onSlideChange();
@@ -319,6 +328,48 @@ function updateCurrentYear() {
   yearElement.textContent = year;
 }
 
+const ABOUT_SHIPPING_BREAKPOINT = 768;
+
+function initAboutShippingSlider() {
+  const els = document.querySelectorAll('.about-shipping__slider');
+  if (!els.length) return;
+
+  const swiperInstances = new Map();
+  const mediaQuery = window.matchMedia(
+    `(min-width: ${ABOUT_SHIPPING_BREAKPOINT}px)`,
+  );
+
+  function initSwiper(el) {
+    if (swiperInstances.has(el)) return;
+    const swiperInstance = new Swiper(el, {
+      slidesPerView: 2.3,
+      spaceBetween: 30,
+    });
+    swiperInstances.set(el, swiperInstance);
+  }
+
+  function destroySwiper(el) {
+    const swiperInstance = swiperInstances.get(el);
+    if (!swiperInstance) return;
+    swiperInstance.destroy(true, true);
+    swiperInstances.delete(el);
+  }
+
+  function handleBreakpointChange() {
+    els.forEach((el) => {
+      if (mediaQuery.matches) {
+        initSwiper(el);
+      } else {
+        destroySwiper(el);
+      }
+    });
+  }
+
+  mediaQuery.addEventListener('change', handleBreakpointChange);
+  handleBreakpointChange();
+}
+
+
 initMobileMenu();
 initContactModal();
 updateCurrentYear();
@@ -326,3 +377,4 @@ initVideoControls();
 initAboutBrandsSlider();
 initShopSlider();
 initSliderVideo();
+initAboutShippingSlider();
