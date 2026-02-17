@@ -21,13 +21,13 @@
       @include adaptive-value('margin-bottom', 40, 24, 1);
     }
 
-    b,
-    &__block-title {
+    h3 {
       display: block;
       color: map-get($neutral, 100);
       font-size: 20px;
       font-weight: 500;
       margin-bottom: 12px;
+      text-transform: none;
     }
 
     p {
