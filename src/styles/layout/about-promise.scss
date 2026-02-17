@@ -88,6 +88,10 @@
       @include media('<tablet') {
         max-width: 100%;
       }
+
+      @include media('<phone') {
+        font-weight: 600;
+      }
     }
 
     &-description {
