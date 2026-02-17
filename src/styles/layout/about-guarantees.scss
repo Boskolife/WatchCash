@@ -21,7 +21,8 @@
       @include adaptive-value('margin-bottom', 40, 24, 1);
     }
 
-    b {
+    b,
+    &__block-title {
       display: block;
       color: map-get($neutral, 100);
       font-size: 20px;
