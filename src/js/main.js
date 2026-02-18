@@ -176,17 +176,20 @@ function initAboutBrandsSlider() {
 
   function initSwiper() {
     if (swiperInstance) return;
+
     swiperInstance = new Swiper(el, {
       modules: [Autoplay],
       loop: true,
       slidesPerView: 'auto',
       spaceBetween: 40,
-      speed: 3000,
+      speed: 1000,
       autoplay: {
         delay: 0,
         disableOnInteraction: false,
       },
       allowTouchMove: false,
+      freeMode: true,
+      freeModeMomentum: false,
     });
   }
 

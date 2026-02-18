@@ -1,0 +1,161 @@
+.case {
+  padding: 80px 0;
+
+  &__title {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    @include media('<tablet') {
+      flex-direction: column;
+      row-gap: 32px;
+    }
+  }
+
+  &__item {
+    border-radius: 40px;
+    overflow: hidden;
+
+    @include media('<phone') {
+      border-radius: 24px;
+    }
+
+    &.item-1 {
+      width: 46%;
+      position: absolute;
+      z-index: -1;
+
+      @include media('<tablet') {
+        position: static;
+        width: 100%;
+      }
+
+      .case__item-header {
+        background-color: #4e4e4e;
+      }
+
+      .case__item-content {
+        background: #dededeb2;
+        box-shadow: 0px 0px 10px 5px #d4d4d440 inset;
+        backdrop-filter: blur(10px);
+        border-radius: 0 0 40px 40px;
+
+        @include media('<phone') {
+          border-radius: 0 0 24px 24px;
+        }
+      }
+    }
+
+    &.item-2 {
+      width: 57%;
+      margin-left: auto;
+
+      @include media('<tablet') {
+        width: 100%;
+        margin-left: 0;
+      }
+
+      .case__item-header {
+        border-radius: 40px 40px 0 0;
+        background-color: #0b113b;
+        box-shadow: 0px 4px 10px 5px #ffffff40 inset;
+
+        @include media('<phone') {
+          border-radius: 24px 24px 0 0;
+        }
+      }
+
+      .case__item-content {
+        background: #3c416299;
+        backdrop-filter: blur(20px);
+        box-shadow: 0px 0px 10px 5px #ffffff40 inset;
+        border-radius: 0 0 40px 40px;
+
+        @include media('<phone') {
+          border-radius: 0 0 24px 24px;
+        }
+      }
+
+      .case__item-text {
+        color: map-get($neutral, 100);
+      }
+    }
+
+    &-header {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100px;
+
+      @include media('<phone') {
+        height: 60px;
+        padding: 16px;
+      }
+    }
+
+    &-logo {
+      display: block;
+      width: auto;
+      height: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    &-title {
+      @include adaptive-value('font-size', 52, 24, 1);
+      text-transform: uppercase;
+      font-weight: 600;
+      color: map-get($neutral, 100);
+      @include px-to-percent-line-height(60px, 52px);
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      @include adaptive-value('gap', 32, 24, 1);
+      padding: 46px 32px;
+
+      @include media('<tablet') {
+        padding: 32px;
+      }
+    }
+
+    &-row {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+
+      @include media('<phone') {
+        flex-direction: row;
+      }
+    }
+
+    &-icon {
+      width: 44px;
+      height: 44px;
+
+      @include media('<phone') {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    &-text {
+      @include adaptive-value('font-size', 20, 18, 1);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+}
