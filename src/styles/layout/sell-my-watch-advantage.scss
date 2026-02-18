@@ -1,0 +1,82 @@
+.sell-my-watch-advantage {
+  padding: 80px 0;
+  background:
+    url('/images/bg-lines-2.svg') center / cover no-repeat,
+    map-get($brand, 500);
+  @include adaptive-value('border-radius', 76, 40, 1);
+
+  &__inner {
+    text-align: center;
+    @include adaptive-value('margin-bottom', 60, 40, 1);
+  }
+
+  &__title {
+    color: map-get($neutral, 100);
+    @include adaptive-value('margin-bottom', 16, 12, 1);
+  }
+
+  &__text {
+    color: map-get($neutral, 100);
+    max-width: 470px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    @include adaptive-value('row-gap', 60, 16, 1);
+    @include adaptive-value('column-gap', 64, 16, 1);
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 331px;
+    width: 100%;
+    text-align: center;
+
+    &-icon {
+      width: 68px;
+      height: 68px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: map-get($neutral, 100);
+      border-radius: 12px;
+      @include adaptive-value('margin-bottom', 16, 4, 1);
+
+      img {
+        width: 44px;
+        height: 44px;
+      }
+    }
+
+    &-title {
+      @include adaptive-value('font-size', 32, 24, 1);
+      @include px-to-percent-line-height(40px, 32px);
+      font-weight: 700;
+      color: map-get($neutral, 100);
+      @include adaptive-value('margin-bottom', 16, 12, 1);
+
+      @include media('<phone') {
+        text-transform: capitalize;
+        font-weight: 600;
+        max-width: 315px;
+      }
+    }
+
+    &-text {
+      color: map-get($neutral, 100);
+
+      @include media('<phone') {
+        font-weight: 500;
+      }
+    }
+  }
+}
