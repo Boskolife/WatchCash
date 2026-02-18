@@ -40,10 +40,7 @@
       object-fit: cover;
       border-radius: 20px;
       overflow: hidden;
-
-      @include media('<desktop') {
-        height: 560px;
-      }
+      aspect-ratio: 2 / 3;
     }
   }
 

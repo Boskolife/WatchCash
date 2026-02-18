@@ -228,21 +228,14 @@ export function initSellFormPhone() {
     validatePhoneInput({ preventDefault: () => {} });
   });
 
+  // Phone validation is handled by validateForm() in initSellFormSubmit
+  // This handler just updates the phone value to international format before submission
   form.addEventListener('submit', (e) => {
     const fullNumber = iti.getNumber();
     if (fullNumber) {
       phoneInput.value = fullNumber;
-    } else {
-      // Validate before submit
-      if (!iti.isValidNumber()) {
-        e.preventDefault();
-        phoneInput.setCustomValidity('Please enter a valid phone number');
-        phoneInput.reportValidity();
-        return;
-      }
     }
-    phoneInput.setCustomValidity('');
-    // Phone value will be updated before form submission handler runs
+    // Phone validation is handled by validateForm() function
   });
 }
 
@@ -270,7 +263,9 @@ export function initCustomSelect() {
       }
 
       options.forEach((opt) => {
-        opt.classList.toggle('is-selected', opt.dataset.value === value);
+        const isSelected = opt.dataset.value === value;
+        opt.classList.toggle('is-selected', isSelected);
+        opt.setAttribute('aria-selected', isSelected ? 'true' : 'false');
       });
 
       button.setAttribute('aria-expanded', 'false');
@@ -472,9 +467,32 @@ export function resetSellForm(form) {
   // Reset form validation states
   const inputs = form.querySelectorAll('input, textarea, select');
   inputs.forEach((input) => {
-    input.setCustomValidity('');
     input.classList.remove('error', 'is-invalid');
+    input.removeAttribute('aria-invalid');
+    clearFieldError(input);
   });
+
+  // Reset custom select validation
+  const customSelect = form.querySelector('[data-custom-select]');
+  if (customSelect) {
+    customSelect.classList.remove('is-invalid');
+    const errorEl = customSelect.parentElement.querySelector('.form-error');
+    if (errorEl) {
+      errorEl.textContent = '';
+      errorEl.removeAttribute('role');
+    }
+  }
+
+  // Reset drag-and-drop wrapper validation
+  const dragDropWrapper = form.querySelector('[data-drag-drop-wrapper]');
+  if (dragDropWrapper) {
+    dragDropWrapper.classList.remove('is-invalid');
+    const errorEl = dragDropWrapper.querySelector('.form-error');
+    if (errorEl) {
+      errorEl.textContent = '';
+      errorEl.removeAttribute('role');
+    }
+  }
 }
 
 function resetSimpleSellForm(form) {
@@ -489,9 +507,232 @@ function resetSimpleSellForm(form) {
   // Reset form validation states
   const inputs = form.querySelectorAll('input');
   inputs.forEach((input) => {
-    input.setCustomValidity('');
     input.classList.remove('error', 'is-invalid');
+    input.removeAttribute('aria-invalid');
+    clearFieldError(input);
   });
+}
+
+// Form validation helper functions
+function showFieldError(field, message) {
+  field.classList.add('is-invalid');
+  field.setAttribute('aria-invalid', 'true');
+  
+  // For phone input wrapped in .iti container, find error element in parent label
+  let containerToSearch = field.parentElement;
+  if (containerToSearch.classList.contains('iti')) {
+    // If field is inside .iti, search in the parent label element
+    containerToSearch = containerToSearch.parentElement;
+  }
+  
+  // Find or create error message element
+  let errorEl = containerToSearch.querySelector('.form-error');
+  if (!errorEl) {
+    errorEl = document.createElement('span');
+    errorEl.className = 'form-error';
+    errorEl.setAttribute('aria-live', 'polite');
+    containerToSearch.appendChild(errorEl);
+  }
+  
+  errorEl.textContent = message;
+  errorEl.setAttribute('role', 'alert');
+}
+
+function clearFieldError(field) {
+  field.classList.remove('is-invalid');
+  field.setAttribute('aria-invalid', 'false');
+  
+  // For phone input wrapped in .iti container, find error element in parent label
+  let containerToSearch = field.parentElement;
+  if (containerToSearch.classList.contains('iti')) {
+    // If field is inside .iti, search in the parent label element
+    containerToSearch = containerToSearch.parentElement;
+  }
+  
+  const errorEl = containerToSearch.querySelector('.form-error');
+  if (errorEl) {
+    errorEl.textContent = '';
+    errorEl.removeAttribute('role');
+  }
+}
+
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+function validateForm(form) {
+  let isValid = true;
+  const errors = [];
+
+  // Validate email
+  const emailInput = form.querySelector('#sell-form-email');
+  if (emailInput) {
+    const emailValue = emailInput.value.trim();
+    if (!emailValue) {
+      showFieldError(emailInput, 'Email address is required');
+      isValid = false;
+    } else if (!validateEmail(emailValue)) {
+      showFieldError(emailInput, 'Please enter a valid email address');
+      isValid = false;
+    } else {
+      clearFieldError(emailInput);
+    }
+  }
+
+  // Validate brand name
+  const brandInput = form.querySelector('#sell-form-brand');
+  if (brandInput) {
+    const brandValue = brandInput.value.trim();
+    if (!brandValue) {
+      showFieldError(brandInput, 'Brand name is required');
+      isValid = false;
+    } else {
+      clearFieldError(brandInput);
+    }
+  }
+
+  // Validate first name (if exists - only in big form)
+  const firstNameInput = form.querySelector('#sell-form-first-name');
+  if (firstNameInput) {
+    const firstNameValue = firstNameInput.value.trim();
+    if (!firstNameValue) {
+      showFieldError(firstNameInput, 'First name is required');
+      isValid = false;
+    } else {
+      clearFieldError(firstNameInput);
+    }
+  }
+
+  // Validate phone (if exists - only in big form)
+  const phoneInput = form.querySelector('#sell-form-phone');
+  if (phoneInput) {
+    const phoneValue = phoneInput.value.trim();
+    if (!phoneValue) {
+      showFieldError(phoneInput, 'Phone number is required');
+      isValid = false;
+    } else {
+      // Validate phone using intl-tel-input if available
+      try {
+        const itiInstance = phoneInput.iti || intlTelInput?.getInstance(phoneInput);
+        if (itiInstance && typeof itiInstance.isValidNumber === 'function') {
+          if (!itiInstance.isValidNumber()) {
+            // Get detailed error message if available
+            let errorMessage = 'Please enter a valid phone number';
+            if (typeof itiInstance.getValidationError === 'function' && intlTelInput.utils) {
+              const errorCode = itiInstance.getValidationError();
+              if (errorCode !== undefined && intlTelInput.utils.validationError) {
+                const errorMap = {
+                  [intlTelInput.utils.validationError.TOO_SHORT]: 'Phone number is too short',
+                  [intlTelInput.utils.validationError.TOO_LONG]: 'Phone number is too long',
+                  [intlTelInput.utils.validationError.INVALID_COUNTRY_CODE]: 'Invalid country code',
+                  [intlTelInput.utils.validationError.INVALID_LENGTH]: 'Invalid phone number length',
+                };
+                errorMessage = errorMap[errorCode] || errorMessage;
+              }
+            }
+            showFieldError(phoneInput, errorMessage);
+            isValid = false;
+          } else {
+            clearFieldError(phoneInput);
+            // Remove iti--error class if library added it
+            const itiContainer = phoneInput.closest('.iti');
+            if (itiContainer) {
+              itiContainer.classList.remove('iti--error');
+            }
+          }
+        } else {
+          // Fallback validation - check if phone has reasonable length
+          const digitsOnly = phoneValue.replace(/\D/g, '');
+          if (digitsOnly.length < 7) {
+            showFieldError(phoneInput, 'Please enter a valid phone number');
+            isValid = false;
+          } else {
+            clearFieldError(phoneInput);
+          }
+        }
+      } catch (error) {
+        // If intl-tel-input validation fails, use basic validation
+        const digitsOnly = phoneValue.replace(/\D/g, '');
+        if (digitsOnly.length < 7) {
+          showFieldError(phoneInput, 'Please enter a valid phone number');
+          isValid = false;
+        } else {
+          clearFieldError(phoneInput);
+        }
+      }
+    }
+  }
+
+  // Validate box and papers select (if exists - only in big form)
+  const boxAndPapersSelect = form.querySelector('#sell-form-box-and-papers');
+  if (boxAndPapersSelect) {
+    const selectValue = boxAndPapersSelect.value;
+    if (!selectValue || selectValue === '') {
+      const selectContainer = boxAndPapersSelect.closest('[data-custom-select]');
+      if (selectContainer) {
+        selectContainer.classList.add('is-invalid');
+        let errorEl = selectContainer.parentElement.querySelector('.form-error');
+        if (!errorEl) {
+          errorEl = document.createElement('span');
+          errorEl.className = 'form-error';
+          errorEl.setAttribute('aria-live', 'polite');
+          selectContainer.parentElement.appendChild(errorEl);
+        }
+        errorEl.textContent = 'Please select an option';
+        errorEl.setAttribute('role', 'alert');
+      }
+      isValid = false;
+    } else {
+      const selectContainer = boxAndPapersSelect.closest('[data-custom-select]');
+      if (selectContainer) {
+        selectContainer.classList.remove('is-invalid');
+        const errorEl = selectContainer.parentElement.querySelector('.form-error');
+        if (errorEl) {
+          errorEl.textContent = '';
+          errorEl.removeAttribute('role');
+        }
+      }
+    }
+  }
+
+  // Validate file upload (if exists - only in big form)
+  const fileInput = form.querySelector('#sell-form-watch');
+  if (fileInput) {
+    if (!fileInput.files || fileInput.files.length === 0) {
+      const fileWrapper = fileInput.closest('[data-drag-drop-wrapper]');
+      if (fileWrapper) {
+        fileWrapper.classList.add('is-invalid');
+        let errorEl = fileWrapper.querySelector('.form-error');
+        if (!errorEl) {
+          errorEl = document.createElement('span');
+          errorEl.className = 'form-error';
+          errorEl.setAttribute('aria-live', 'polite');
+          const hintEl = fileWrapper.querySelector('#sell-form-watch-hint');
+          if (hintEl && hintEl.nextSibling) {
+            fileWrapper.insertBefore(errorEl, hintEl.nextSibling);
+          } else {
+            fileWrapper.appendChild(errorEl);
+          }
+        }
+        errorEl.textContent = 'Please upload at least one photo';
+        errorEl.setAttribute('role', 'alert');
+      }
+      isValid = false;
+    } else {
+      const fileWrapper = fileInput.closest('[data-drag-drop-wrapper]');
+      if (fileWrapper) {
+        fileWrapper.classList.remove('is-invalid');
+        const errorEl = fileWrapper.querySelector('.form-error');
+        if (errorEl) {
+          errorEl.textContent = '';
+          errorEl.removeAttribute('role');
+        }
+      }
+    }
+  }
+
+  return isValid;
 }
 
 export function initSellFormSubmit() {
@@ -499,8 +740,78 @@ export function initSellFormSubmit() {
   if (!forms.length) return;
 
   forms.forEach((form) => {
+    // Add real-time validation on blur
+    const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
+    inputs.forEach((input) => {
+      input.addEventListener('blur', () => {
+        if (input.value.trim() || input.type === 'file') {
+          // Only validate if field has value or is file input
+          validateForm(form);
+        }
+      });
+
+      input.addEventListener('input', () => {
+        // Clear error when user starts typing
+        if (input.classList.contains('is-invalid')) {
+          clearFieldError(input);
+        }
+      });
+    });
+
+    // Validate custom select on change
+    const customSelect = form.querySelector('[data-custom-select]');
+    if (customSelect) {
+      const select = customSelect.querySelector('select');
+      if (select) {
+        select.addEventListener('change', () => {
+          const selectContainer = select.closest('[data-custom-select]');
+          if (selectContainer && selectContainer.classList.contains('is-invalid')) {
+            if (select.value && select.value !== '') {
+              selectContainer.classList.remove('is-invalid');
+              const errorEl = selectContainer.parentElement.querySelector('.form-error');
+              if (errorEl) {
+                errorEl.textContent = '';
+                errorEl.removeAttribute('role');
+              }
+            }
+          }
+        });
+      }
+    }
+
+    // Validate file input on change
+    const fileInput = form.querySelector('#sell-form-watch');
+    if (fileInput) {
+      fileInput.addEventListener('change', () => {
+        const fileWrapper = fileInput.closest('[data-drag-drop-wrapper]');
+        if (fileWrapper && fileWrapper.classList.contains('is-invalid')) {
+          if (fileInput.files && fileInput.files.length > 0) {
+            fileWrapper.classList.remove('is-invalid');
+            const errorEl = fileWrapper.querySelector('.form-error');
+            if (errorEl) {
+              errorEl.textContent = '';
+              errorEl.removeAttribute('role');
+            }
+          }
+        }
+      });
+    }
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+
+      // Validate form before submission
+      if (!validateForm(form)) {
+        // Focus first invalid field
+        const firstInvalid = form.querySelector('.is-invalid, [data-custom-select].is-invalid, [data-drag-drop-wrapper].is-invalid');
+        if (firstInvalid) {
+          const focusableField = firstInvalid.querySelector('input, select, textarea') || firstInvalid.querySelector('[data-custom-select] button') || firstInvalid.querySelector('[data-drag-area]');
+          if (focusableField) {
+            setTimeout(() => focusableField.focus(), 100);
+          }
+        }
+        return;
+      }
 
       const formData = {};
 

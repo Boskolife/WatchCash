@@ -1,11 +1,8 @@
-// Swiper imports
-import Swiper from 'swiper';
-import { Navigation, Autoplay } from 'swiper/modules';
+// Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-// intl-tel-input imports
-import intlTelInput from 'intl-tel-input';
+// intl-tel-input styles
 import 'intl-tel-input/build/css/intlTelInput.css';
 
 // Modules
@@ -14,6 +11,7 @@ import {
   initVideoControls,
   initVideoLazyLoading,
   removeVideoControls,
+  initResponsiveVideoSources,
 } from './modules/video.js';
 import {
   initAboutBrandsSlider,
@@ -34,6 +32,7 @@ initMobileMenu();
 initContactModal();
 updateCurrentYear();
 removeVideoControls();
+initResponsiveVideoSources();
 initVideoLazyLoading();
 initVideoControls();
 initAboutBrandsSlider();

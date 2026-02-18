@@ -163,6 +163,14 @@
       &:focus {
         border-color: map-get($brand, 500);
       }
+
+      &.is-invalid {
+        border-color: #dc3545;
+
+        &:focus {
+          border-color: #dc3545;
+        }
+      }
     }
 
     textarea {
@@ -185,6 +193,14 @@
       &:focus {
         border-color: map-get($brand, 500);
       }
+
+      &.is-invalid {
+        border-color: #dc3545;
+
+        &:focus {
+          border-color: #dc3545;
+        }
+      }
     }
 
     select {
@@ -205,6 +221,17 @@
   .custom-select {
     position: relative;
     width: 100%;
+
+    &.is-invalid {
+      .custom-select__button {
+        border-color: #dc3545;
+
+        &:hover,
+        &:focus {
+          border-color: #dc3545;
+        }
+      }
+    }
 
     &__button {
       width: 100%;
@@ -318,7 +345,7 @@
     display: flex;
     gap: 16px;
 
-    @include media ("<tablet") {
+    @include media('<tablet') {
       flex-direction: column;
     }
 
@@ -369,11 +396,26 @@
     border: 0;
   }
 
+  .drag-and-drop-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    
+    &.is-invalid {
+      .drag-area {
+        border-color: #dc3545;
+
+        &:hover {
+          border-color: #dc3545;
+        }
+      }
+    }
+  }
+
   .drag-area {
     padding: 40px 30px;
     border-radius: 24px;
     border: 2px dashed map-get($neutral, 500);
-    margin-bottom: 12px;
     transition:
       border-color 0.2s ease,
       background-color 0.2s ease;
@@ -438,13 +480,38 @@
     @include px-to-percent-line-height(14px, 12px);
   }
 
-  .iti {
+  .form-error {
     display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: #dc3545;
+    line-height: 1.4;
+  }
+
+  .iti {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     width: 100%;
+
+    // Hide library's error class styling since we use custom validation
+    &.iti--error {
+      .iti__tel-input {
+        border-color: map-get($neutral, 500);
+      }
+    }
   }
 
   .iti__tel-input {
     padding-left: 52px;
+
+    &.is-invalid {
+      border-color: #dc3545;
+
+      &:focus {
+        border-color: #dc3545;
+      }
+    }
   }
 
   &__right-col {

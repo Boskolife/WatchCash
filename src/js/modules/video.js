@@ -88,6 +88,55 @@ export function loadSliderVideo(video) {
   }
 }
 
+/**
+ * Selects appropriate video source based on screen width
+ * Looks for sources with "-mob." or "mobile" in filename for mobile versions
+ */
+export function initResponsiveVideoSources() {
+  const videos = document.querySelectorAll('video');
+  if (!videos.length) return;
+
+  function selectVideoSource(video) {
+    const sources = video.querySelectorAll('source');
+    if (sources.length < 2) return; // Need at least 2 sources for responsive behavior
+
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const mobileSource = Array.from(sources).find(
+      (source) => source.src.includes('-mob.') || source.src.includes('mobile'),
+    );
+    const desktopSource = Array.from(sources).find(
+      (source) => !source.src.includes('-mob.') && !source.src.includes('mobile'),
+    );
+
+    if (isMobile && mobileSource) {
+      // Remove all sources and add mobile source first
+      sources.forEach((source) => source.remove());
+      video.appendChild(mobileSource);
+      if (desktopSource) video.appendChild(desktopSource);
+    } else if (!isMobile && desktopSource) {
+      // Remove all sources and add desktop source first
+      sources.forEach((source) => source.remove());
+      video.appendChild(desktopSource);
+      if (mobileSource) video.appendChild(mobileSource);
+    }
+
+    // Reload video to use new source
+    video.load();
+  }
+
+  // Initialize on page load
+  videos.forEach(selectVideoSource);
+
+  // Update on window resize
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      videos.forEach(selectVideoSource);
+    }, 250);
+  });
+}
+
 export function initVideoLazyLoading() {
   const videos = document.querySelectorAll('video');
   if (!videos.length) return;

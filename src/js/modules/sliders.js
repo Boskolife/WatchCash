@@ -1,7 +1,7 @@
 import Swiper from 'swiper';
 import { Navigation, Autoplay } from 'swiper/modules';
 import { ABOUT_BRANDS_BREAKPOINT, ABOUT_SHIPPING_BREAKPOINT, SLIDER_VIDEO_BREAKPOINTS } from './constants.js';
-import { loadSliderVideo } from './video.js';
+import { loadSliderVideo, initVideoControlsForContainer } from './video.js';
 
 export function initAboutBrandsSlider() {
   const el = document.querySelector('.about-brands__slider');
@@ -50,7 +50,10 @@ export function initAboutBrandsSlider() {
 }
 
 export function initShopSlider() {
-  const shopSlider = new Swiper('.shop__slider', {
+  const sliderElement = document.querySelector('.shop__slider');
+  if (!sliderElement) return;
+
+  new Swiper(sliderElement, {
     modules: [Navigation],
     navigation: {
       nextEl: '.swiper-button-next',
@@ -76,8 +79,6 @@ export function initShopSlider() {
       },
     },
   });
-
-  if (!shopSlider) return;
 }
 
 export function initSliderVideo() {
@@ -88,13 +89,59 @@ export function initSliderVideo() {
     const navNext = section.querySelector('.swiper-button-next');
     const navPrev = section.querySelector('.swiper-button-prev');
 
+    // Count total slides
+    const slideCount = container.querySelectorAll('.swiper-slide').length;
+    
+    // Create breakpoints with loopedSlides for each breakpoint where loop is enabled
+    // For Swiper loop to work properly, loopedSlides must be >= slidesPerView
+    // When slideCount is small (e.g., 5), we need to ensure loopedSlides is sufficient
+    // Rule: loopedSlides should be at least equal to slideCount for seamless looping
+    const breakpointsWithLoopedSlides = {
+      320: {
+        ...SLIDER_VIDEO_BREAKPOINTS[320],
+        // No loopedSlides needed here as loop is false
+      },
+      480: {
+        ...SLIDER_VIDEO_BREAKPOINTS[480],
+        // For 1.3 slidesPerView with 5 slides, need at least 5 loopedSlides
+        loopedSlides: Math.max(Math.ceil(SLIDER_VIDEO_BREAKPOINTS[480].slidesPerView), slideCount),
+      },
+      576: {
+        ...SLIDER_VIDEO_BREAKPOINTS[576],
+        // For 1.8 slidesPerView with 5 slides, need at least 5 loopedSlides
+        loopedSlides: Math.max(Math.ceil(SLIDER_VIDEO_BREAKPOINTS[576].slidesPerView), slideCount),
+      },
+      768: {
+        ...SLIDER_VIDEO_BREAKPOINTS[768],
+        // For 2.5 slidesPerView with 5 slides, need at least 5 loopedSlides
+        loopedSlides: Math.max(Math.ceil(SLIDER_VIDEO_BREAKPOINTS[768].slidesPerView), slideCount),
+      },
+      1024: {
+        ...SLIDER_VIDEO_BREAKPOINTS[1024],
+        // For 3.5 slidesPerView with 5 slides, need at least 5 loopedSlides (all slides)
+        loopedSlides: Math.max(Math.ceil(SLIDER_VIDEO_BREAKPOINTS[1024].slidesPerView), slideCount),
+      },
+      1200: {
+        ...SLIDER_VIDEO_BREAKPOINTS[1200],
+        // For 3.8 slidesPerView with 5 slides, need at least 5 loopedSlides (all slides)
+        loopedSlides: Math.max(Math.ceil(SLIDER_VIDEO_BREAKPOINTS[1200].slidesPerView), slideCount),
+      },
+      1441: {
+        ...SLIDER_VIDEO_BREAKPOINTS[1441],
+        // For 3.8 slidesPerView with 5 slides, need at least 5 loopedSlides (all slides)
+        loopedSlides: Math.max(Math.ceil(SLIDER_VIDEO_BREAKPOINTS[1441].slidesPerView), slideCount),
+      },
+    };
+
     const swiperInstance = new Swiper(container, {
       modules: [Navigation],
+      loop: true,
+      loopedSlides: slideCount, // Default value
       navigation: {
         nextEl: navNext,
         prevEl: navPrev,
       },
-      breakpoints: SLIDER_VIDEO_BREAKPOINTS,
+      breakpoints: breakpointsWithLoopedSlides,
     });
 
     function pauseAllVideos() {
@@ -139,6 +186,11 @@ export function initSliderVideo() {
     const initialIndex = swiperInstance.activeIndex;
     loadSlideVideos(initialIndex);
     onSlideChange();
+
+    // Initialize video controls for each slide item
+    container.querySelectorAll('.slider-video__item').forEach((item) => {
+      initVideoControlsForContainer(item);
+    });
   });
 }
 

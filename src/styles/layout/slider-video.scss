@@ -38,6 +38,11 @@
     padding: 0 12px !important;
     overflow: visible !important;
 
+    @include media('>1440px') {
+      overflow: hidden !important;
+      max-width: 1800px
+    }
+
     .swiper-wrapper {
       height: 500px !important;
       align-items: center;

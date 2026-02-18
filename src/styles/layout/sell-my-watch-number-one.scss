@@ -31,10 +31,13 @@
     overflow: hidden;
     position: relative;
     @include adaptive-value('margin-bottom', 40, 24, 1);
-    width: 100%;
+    width: auto;
     height: auto;
     aspect-ratio: 16 / 9;
-    min-height: 620px;
+
+    @include media('<tablet') {
+      aspect-ratio: 2 / 3;
+    }
 
     video {
       position: absolute;
@@ -42,7 +45,11 @@
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      
+      @include media ("<tablet") {
+        object-fit: cover;
+      }
     }
   }
 

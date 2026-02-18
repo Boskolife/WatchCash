@@ -68,7 +68,10 @@
                 </div>
             </div>
             <div class="about-different__video" data-video-controls>
-                <video src="/videos/test-video.mp4" autoplay muted loop></video>
+                <video playsinline muted loop autoplay>
+                    <source src="/videos/seller-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
                 <button class="about-different__btn play" type="button" aria-label="Pause video">
                     <img src="/icons/pause.svg" alt="Pause" width="24" height="24" class="pause-icon">
                     <img src="/icons/play.svg" alt="Play" width="24" height="24" class="play-icon is-hidden">

@@ -31,13 +31,19 @@ export const SLIDER_VIDEO_BREAKPOINTS = {
     spaceBetween: 16,
   },
   1024: {
-    slidesPerView: 3.5,
+    slidesPerView: 3,
     loop: true,
     centeredSlides: true,
     spaceBetween: 16,
   },
   1200: {
-    slidesPerView: 3.8,
+    slidesPerView: 4,
+    loop: true,
+    centeredSlides: true,
+    spaceBetween: 20,
+  },
+  1441: {
+    slidesPerView: 5,
     loop: true,
     centeredSlides: true,
     spaceBetween: 20,

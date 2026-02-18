@@ -40,14 +40,16 @@
                     </div>
                 </div>
                 <div class="sell__form-wrapper">
-                    <form class="sell__form">
+                    <form class="sell__form" novalidate>
                         <label for="sell-form-email">Email address
                             <input type="email" id="sell-form-email" name="sell-form-email"
-                                placeholder="Enter your email address">
+                                placeholder="Enter your email address" autocomplete="email" required>
+                            <span class="form-error" aria-live="polite"></span>
                         </label>
                         <label for="sell-form-brand">Brand Name
                             <input type="text" id="sell-form-brand" name="sell-form-brand"
-                                placeholder="Enter your brand name">
+                                placeholder="Enter your brand name" autocomplete="organization" required>
+                            <span class="form-error" aria-live="polite"></span>
                         </label>
                         <button type="submit" class="sell__form-button btn btn_primary">
                             Free Quote
