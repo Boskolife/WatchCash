@@ -480,6 +480,7 @@ export function resetSellForm(form) {
     if (errorEl) {
       errorEl.textContent = '';
       errorEl.removeAttribute('role');
+      errorEl.classList.remove('is-visible');
     }
   }
 
@@ -491,6 +492,7 @@ export function resetSellForm(form) {
     if (errorEl) {
       errorEl.textContent = '';
       errorEl.removeAttribute('role');
+      errorEl.classList.remove('is-visible');
     }
   }
 }
@@ -536,6 +538,7 @@ function showFieldError(field, message) {
   
   errorEl.textContent = message;
   errorEl.setAttribute('role', 'alert');
+  errorEl.classList.add('is-visible');
 }
 
 function clearFieldError(field) {
@@ -553,6 +556,7 @@ function clearFieldError(field) {
   if (errorEl) {
     errorEl.textContent = '';
     errorEl.removeAttribute('role');
+    errorEl.classList.remove('is-visible');
   }
 }
 
@@ -681,6 +685,7 @@ function validateForm(form) {
         }
         errorEl.textContent = 'Please select an option';
         errorEl.setAttribute('role', 'alert');
+        errorEl.classList.add('is-visible');
       }
       isValid = false;
     } else {
@@ -691,6 +696,7 @@ function validateForm(form) {
         if (errorEl) {
           errorEl.textContent = '';
           errorEl.removeAttribute('role');
+          errorEl.classList.remove('is-visible');
         }
       }
     }
@@ -717,6 +723,7 @@ function validateForm(form) {
         }
         errorEl.textContent = 'Please upload at least one photo';
         errorEl.setAttribute('role', 'alert');
+        errorEl.classList.add('is-visible');
       }
       isValid = false;
     } else {
@@ -727,6 +734,7 @@ function validateForm(form) {
         if (errorEl) {
           errorEl.textContent = '';
           errorEl.removeAttribute('role');
+          errorEl.classList.remove('is-visible');
         }
       }
     }
@@ -772,6 +780,7 @@ export function initSellFormSubmit() {
               if (errorEl) {
                 errorEl.textContent = '';
                 errorEl.removeAttribute('role');
+                errorEl.classList.remove('is-visible');
               }
             }
           }
@@ -791,6 +800,7 @@ export function initSellFormSubmit() {
             if (errorEl) {
               errorEl.textContent = '';
               errorEl.removeAttribute('role');
+              errorEl.classList.remove('is-visible');
             }
           }
         }

@@ -479,11 +479,15 @@
   }
 
   .form-error {
-    display: block;
+    display: none;
     font-size: 12px;
     font-weight: 500;
     color: #dc3545;
     line-height: 1.4;
+
+    &.is-visible {
+      display: block;
+    }
   }
 
   .iti {
