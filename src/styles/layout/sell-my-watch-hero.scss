@@ -1,0 +1,28 @@
+.sell-my-watch-hero {
+  padding: 58px 0;
+  background:
+    url('/images/bg-lines-2.svg') center / cover no-repeat,
+    map-get($brand, 500);
+  border-radius: 0 0 76px 76px;
+
+  @include media ("<tablet") {
+    padding: 26px 0;
+    border-radius: 0 0 40px 40px;
+  }
+
+  &__inner {
+    text-align: center;
+  }
+
+  &__title {
+    @include adaptive-value("font-size", 48, 32, 1);
+    @include px-to-percent-line-height(56px, 48px);
+    @include adaptive-value("margin-bottom", 12, 8, 1);
+  }
+
+  &__text {
+    @include adaptive-value("font-size", 24, 16, 1);
+    @include px-to-percent-line-height(32px, 24px);
+    color: map-get($neutral, 100);
+  }
+}
