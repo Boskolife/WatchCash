@@ -1,0 +1,120 @@
+.thanks {
+  padding: 80px 0;
+
+  .container {
+    max-width: 1154px;
+  }
+
+  &__inner {
+    text-align: center;
+  }
+
+  &__label {
+    display: block;
+    @include adaptive-value('font-size', 24, 20, 1);
+    font-weight: 600;
+    color: map-get($brand, 400);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    @include adaptive-value('margin-bottom', 32, 20, 1);
+  }
+
+  &__title {
+    @include adaptive-value('font-size', 48, 32, 1);
+    @include px-to-percent-line-height(56px, 48px);
+    @include adaptive-value('margin-bottom', 20, 12, 1);
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &__text {
+    @include adaptive-value('font-size', 24, 16, 1);
+    @include px-to-percent-line-height(32px, 24px);
+    max-width: 845px;
+    width: 100%;
+    margin: 0 auto;
+    @include adaptive-value('margin-bottom', 40, 12, 1);
+  }
+
+  &__next-steps {
+    display: block;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: map-get($brand, 500);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin: 0 auto;
+    @include adaptive-value('margin-bottom', 32, 24, 1);
+  }
+
+  &__steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 8px 9px;
+    margin-bottom: 48px;
+
+    @include media('<desktop') {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-width: 256px;
+    max-width: 256px;
+    text-align: center;
+
+    &-icon {
+      width: 44px;
+      height: 44px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    &-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: map-get($brand, 400);
+      text-transform: uppercase;
+      @include adaptive-value('margin-bottom', 24, 12, 1);
+    }
+
+    &-text {
+      @include adaptive-value('font-size', 20, 16, 1);
+      font-weight: 500;
+      @include px-to-percent-line-height(24px, 20px);
+      color: map-get($brand, 500);
+    }
+  }
+
+  &__divider {
+    max-width: 164px;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(220.32deg, #dcdce2 2.74%, #4b4f55 120.82%);
+    margin-top: 21px;
+
+    @include media('<desktop') {
+      margin: 0;
+      height: 80px;
+      width: 1px;
+    }
+  }
+
+  &__btn {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}

@@ -25,6 +25,7 @@
     "vite-plugin-handlebars": "^1.6.0"
   },
   "dependencies": {
+    "intl-tel-input": "^26.4.1",
     "swiper": "^12.1.1"
   }
 }

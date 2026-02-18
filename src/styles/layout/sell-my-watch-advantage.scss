@@ -4,6 +4,7 @@
     url('/images/bg-lines-2.svg') center / cover no-repeat,
     map-get($brand, 500);
   @include adaptive-value('border-radius', 76, 40, 1);
+  margin-bottom: 16px;
 
   &__inner {
     text-align: center;

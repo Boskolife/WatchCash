@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+{{> head }}
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    {{> header }}
+    <main class="main" id="main-content">
+        <section class="thanks">
+            <div class="container">
+                <div class="thanks__inner">
+                    <span class="thanks__label">Thank You!</span>
+                    <h2 class="thanks__title">Your request has been submitted.</h2>
+                    <p class="thanks__text">Our watch experts are reviewing your details. Expect your personalized offer
+                        within 24 hours (often sooner). You can track the status and view updates anytime
+                        in your WatchCash account.</p>
+                </div>
+                <b class="thanks__next-steps">Next Steps:</b>
+                <div class="thanks__steps">
+                    <div class="thanks__step">
+                        <div class="thanks__step-icon">
+                            <img src="/icons/thanks-icon-1.svg" alt="Number one icon 1" width="44" height="44">
+                        </div>
+                        <span class="thanks__step-label">Step 1</span>
+                        <p class="thanks__step-text">We will send your personalized quote by email.</p>
+                    </div>
+                    <div class="thanks__divider"></div>
+                    <div class="thanks__step">
+                        <div class="thanks__step-icon">
+                            <img src="/icons/thanks-icon-2.svg" alt="Number one icon 2" width="44" height="44">
+                        </div>
+                        <span class="thanks__step-label">Step 2</span>
+                        <p class="thanks__step-text">If you accept, we’ll send you a prepaid insured FedEx label.</p>
+                    </div>
+                    <div class="thanks__divider"></div>
+                    <div class="thanks__step">
+                        <div class="thanks__step-icon">
+                            <img src="/icons/thanks-icon-3.svg" alt="Number one icon 3" width="44" height="44">
+                        </div>
+                        <span class="thanks__step-label">Step 2</span>
+                        <p class="thanks__step-text">Once received and verified, your payment is issued 
+                            within 24–48 hours.</p>
+                    </div>
+                </div>
+                <a href="index.html" class="btn thanks__btn btn_primary">Back to Homepage</a>
+            </div>
+        </section>
+    </main>
+    {{> contact-modal }}
+    {{> mobile-menu }}
+    {{> footer }}
+    <script type="module" src="/js/main.js"></script>
+</body>
+
+</html>
