@@ -912,7 +912,7 @@ export function initSellFormSubmit() {
       }
 
       // Redirect to thanks page after successful submission
-      window.location.href = '/thanks-page.html';
+      window.location.href = 'thanks-page.html';
     });
   });
 }
