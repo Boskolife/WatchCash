@@ -52,89 +52,90 @@
                             <span class="form-error" aria-live="polite"></span>
                         </label>
                         <div class="sell__form-extra" data-sell-form-extra>
-                        <div class="sell__input-wrapper">
-                            <label for="sell-form-first-name">First Name
-                                <input type="text" id="sell-form-first-name" name="sell-form-first-name"
-                                    placeholder="Enter your first name" autocomplete="given-name" required>
-                                <span class="form-error" aria-live="polite"></span>
-                            </label>
-                            <label for="sell-form-phone">Phone number
-                                <input type="tel" id="sell-form-phone" name="sell-form-phone" placeholder="Phone Number"
-                                    autocomplete="tel" required>
-                                <span class="form-error" aria-live="polite"></span>
-                            </label>
-                        </div>
-                        <label for="sell-form-box-and-papers">Do you have Original Box and Papers?
-                            <div class="custom-select" data-custom-select>
-                                <select name="sell-form-box-and-papers" id="sell-form-box-and-papers"
-                                    aria-label="Do you have Original Box and Papers?" required>
-                                    <option value="">Please select...</option>
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
-                                    <option value="i-dont-know">I don't know</option>
-                                    <option value="i-dont-have-it">I don't have it</option>
-                                </select>
-                                <button type="button" class="custom-select__button" aria-haspopup="listbox"
-                                    aria-expanded="false" aria-labelledby="sell-form-box-and-papers">
-                                    <span class="custom-select__selected">Please select...</span>
-                                    <svg class="custom-select__arrow" width="20" height="20" viewBox="0 0 20 20"
-                                        fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                </button>
-                                <ul class="custom-select__dropdown" role="listbox"
-                                    aria-labelledby="sell-form-box-and-papers">
-                                    <li class="custom-select__option" role="option" data-value="" tabindex="-1"
-                                        aria-selected="false">Please select...</li>
-                                    <li class="custom-select__option" role="option" data-value="yes" tabindex="-1"
-                                        aria-selected="false">Yes</li>
-                                    <li class="custom-select__option" role="option" data-value="no" tabindex="-1"
-                                        aria-selected="false">No</li>
-                                    <li class="custom-select__option" role="option" data-value="i-dont-know"
-                                        tabindex="-1" aria-selected="false">I don't know</li>
-                                    <li class="custom-select__option" role="option" data-value="i-dont-have-it"
-                                        tabindex="-1" aria-selected="false">I don't have it</li>
-                                </ul>
+                            <div class="sell__input-wrapper">
+                                <label for="sell-form-first-name">First Name
+                                    <input type="text" id="sell-form-first-name" name="sell-form-first-name"
+                                        placeholder="Enter your first name" autocomplete="given-name" required>
+                                    <span class="form-error" aria-live="polite"></span>
+                                </label>
+                                <label for="sell-form-phone">Phone number
+                                    <input type="tel" id="sell-form-phone" name="sell-form-phone"
+                                        placeholder="Phone Number" autocomplete="tel" required>
+                                    <span class="form-error" aria-live="polite"></span>
+                                </label>
                             </div>
-                            <span class="form-error" aria-live="polite"></span>
-                        </label>
-                        <div class="drag-and-drop-wrapper" data-drag-drop-wrapper>
-                            <label class="drag-and-drop-label">
-                                <span class="drag-and-drop-label-text">Snap your watch</span>
-                                <input type="file" id="sell-form-watch" name="sell-form-watch"
-                                    class="drag-and-drop-input" accept="image/*" multiple
-                                    aria-describedby="sell-form-watch-hint" required>
-                                <div class="drag-area" data-drag-area role="button" tabindex="0"
-                                    aria-label="Choose photos or drag and drop">
-                                    <div class="drag-area__inner">
-                                        <img class="drag-area__icon" src="/icons/document-upload.svg" alt=""
-                                            aria-hidden="true">
-                                        <span class="drag-area__title">Choose a file or drag & drop it here</span>
-                                        <p class="drag-area__description">PNG, GIF, WEBP, JPG. Up to 1Gb.</p>
-                                        <p class="drag-area__files" data-drag-files aria-live="polite"></p>
-                                    </div>
+                            <label for="sell-form-box-and-papers">Do you have Original Box and Papers?
+                                <div class="custom-select" data-custom-select>
+                                    <select name="sell-form-box-and-papers" id="sell-form-box-and-papers"
+                                        aria-label="Do you have Original Box and Papers?" required>
+                                        <option value="">Please select...</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                        <option value="i-dont-know">I don't know</option>
+                                        <option value="i-dont-have-it">I don't have it</option>
+                                    </select>
+                                    <button type="button" class="custom-select__button" aria-haspopup="listbox"
+                                        aria-expanded="false" aria-labelledby="sell-form-box-and-papers">
+                                        <span class="custom-select__selected">Please select...</span>
+                                        <svg class="custom-select__arrow" width="20" height="20" viewBox="0 0 20 20"
+                                            fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                    <ul class="custom-select__dropdown" role="listbox"
+                                        aria-labelledby="sell-form-box-and-papers">
+                                        <li class="custom-select__option" role="option" data-value="" tabindex="-1"
+                                            aria-selected="false">Please select...</li>
+                                        <li class="custom-select__option" role="option" data-value="yes" tabindex="-1"
+                                            aria-selected="false">Yes</li>
+                                        <li class="custom-select__option" role="option" data-value="no" tabindex="-1"
+                                            aria-selected="false">No</li>
+                                        <li class="custom-select__option" role="option" data-value="i-dont-know"
+                                            tabindex="-1" aria-selected="false">I don't know</li>
+                                        <li class="custom-select__option" role="option" data-value="i-dont-have-it"
+                                            tabindex="-1" aria-selected="false">I don't have it</li>
+                                    </ul>
                                 </div>
+                                <span class="form-error" aria-live="polite"></span>
                             </label>
-                            <span class="form-error" aria-live="polite"></span>
-                            <p id="sell-form-watch-hint" class="drag-and-drop-text">Upload as many photos of your watch
-                                as
-                                possible (front view works best).</p>
+                            <div class="drag-and-drop-wrapper" data-drag-drop-wrapper>
+                                <label class="drag-and-drop-label">
+                                    <span class="drag-and-drop-label-text">Snap your watch</span>
+                                    <input type="file" id="sell-form-watch" name="sell-form-watch"
+                                        class="drag-and-drop-input" accept="image/*" multiple
+                                        aria-describedby="sell-form-watch-hint" required>
+                                    <div class="drag-area" data-drag-area role="button" tabindex="0"
+                                        aria-label="Choose photos or drag and drop">
+                                        <div class="drag-area__inner">
+                                            <img class="drag-area__icon" src="/icons/document-upload.svg" alt=""
+                                                aria-hidden="true">
+                                            <span class="drag-area__title">Choose a file or drag & drop it here</span>
+                                            <p class="drag-area__description">PNG, GIF, WEBP, JPG. Up to 1Gb.</p>
+                                            <p class="drag-area__files" data-drag-files aria-live="polite"></p>
+                                        </div>
+                                    </div>
+                                </label>
+                                <span class="form-error" aria-live="polite"></span>
+                                <p id="sell-form-watch-hint" class="drag-and-drop-text">Upload as many photos of your
+                                    watch
+                                    as
+                                    possible (front view works best).</p>
+                            </div>
+                            <label for="sell-form-additional-information">
+                                Additional Information (Optional)
+                                <textarea name="sell-form-additional-information" id="sell-form-additional-information"
+                                    placeholder="Enter your additional information"></textarea>
+                            </label>
                         </div>
-                        <label for="sell-form-additional-information">
-                            Additional Information (Optional)
-                            <textarea name="sell-form-additional-information" id="sell-form-additional-information"
-                                placeholder="Enter your additional information"></textarea>
-                        </label>
                         <button type="submit" class="sell__form-button btn btn_primary">
                             Free Quote
                         </button>
-                        </div>
                     </form>
                 </div>
             </div>
             <div class="sell__right-col">
-                {{{picture "/images/sell-img-2.png" alt="Sell image" class="sell__img"
+                {{{picture "/images/sell-img.png" alt="Sell image" class="sell__img"
                 sources=(array (object media="(max-width: 480px)" srcset="/images/sell-img-mob.png"))
                 }}}
             </div>

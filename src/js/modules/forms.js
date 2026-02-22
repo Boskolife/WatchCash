@@ -109,7 +109,7 @@ export function initSellFormPhone() {
 
   const iti = intlTelInput(phoneInput, {
     initialCountry: 'auto',
-    separateDialCode: false,
+    separateDialCode: true,
     strictMode: true,
     loadUtils: () => import('intl-tel-input/utils'),
     geoIpLookup: (success, failure) => {
