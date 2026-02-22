@@ -162,6 +162,7 @@
     @include adaptive-value('margin-bottom', 32, 24, 1);
 
     u {
+      font-weight: 600;
       text-transform: uppercase;
       @include px-to-percent-line-height(28px, 24px);
     }

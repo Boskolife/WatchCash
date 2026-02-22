@@ -4,10 +4,11 @@
   background:
     url('/images/bg-lines-2.svg') center / cover no-repeat,
     map-get($brand, 500);
-  @include adaptive-value('border-radius', 76, 40, 1);
+  border-radius: 76px 76px 0 0;
 
   @include media('<tablet') {
     padding: 24px 0;
+    border-radius: 40px 40px 0 0;
   }
 
   &__top {
