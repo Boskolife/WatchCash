@@ -55,6 +55,7 @@
   &__marquee-item {
     flex-shrink: 0;
     margin-right: 40px;
+    max-width: 330px;
 
     @include media('<tablet') {
       margin-right: 0;
