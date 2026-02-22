@@ -203,11 +203,49 @@ export function initAboutShippingSlider() {
     `(min-width: ${ABOUT_SHIPPING_BREAKPOINT}px)`,
   );
 
+  // Scroll hijack: when section is in view, wheel controls swiper instead of page scroll
+  const HIJACK_TOP_THRESHOLD = 50;
+  const HIJACK_BOTTOM_THRESHOLD = 700;
+
+  function handleWheel(e) {
+    if (!mediaQuery.matches) return;
+
+    const sections = document.querySelectorAll('.about-shipping[data-scroll-slider]');
+    for (const section of sections) {
+      const sliderEl = section.querySelector('.about-shipping__slider');
+      const swiper = sliderEl ? swiperInstances.get(sliderEl) : null;
+      if (!swiper) continue;
+
+      const rect = section.getBoundingClientRect();
+      const inView =
+        rect.top <= HIJACK_TOP_THRESHOLD && rect.bottom >= HIJACK_BOTTOM_THRESHOLD;
+      if (!inView) continue;
+
+      const isFirstSlide = swiper.isBeginning;
+      const isLastSlide = swiper.isEnd;
+      const scrollingDown = e.deltaY > 0;
+
+      if (isFirstSlide && !scrollingDown) return;
+      if (isLastSlide && scrollingDown) return;
+
+      e.preventDefault();
+      if (scrollingDown) {
+        swiper.slideNext();
+      } else {
+        swiper.slidePrev();
+      }
+      return;
+    }
+  }
+
+  document.addEventListener('wheel', handleWheel, { passive: false });
+
   function initSwiper(el) {
     if (swiperInstances.has(el)) return;
     const swiperInstance = new Swiper(el, {
       slidesPerView: 2.3,
       spaceBetween: 30,
+      speed: 1000,
     });
     swiperInstances.set(el, swiperInstance);
   }
