@@ -1,5 +1,19 @@
 import intlTelInput from 'intl-tel-input';
 
+/**
+ * Reveals extra form fields when user focuses on Brand Name input.
+ * Used in section-sell-big (sell-my-watch page).
+ */
+export function initSellFormProgressiveReveal() {
+  const brandInput = document.getElementById('sell-form-brand');
+  const extraBlock = document.querySelector('[data-sell-form-extra]');
+  if (!brandInput || !extraBlock) return;
+
+  brandInput.addEventListener('focus', () => {
+    extraBlock.classList.add('is-visible');
+  });
+}
+
 export function initSellFormDragDrop() {
   const wrappers = document.querySelectorAll('[data-drag-drop-wrapper]');
   wrappers.forEach((wrapper) => {

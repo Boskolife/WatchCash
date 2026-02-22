@@ -48,7 +48,7 @@
 
   &__content {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto auto;
     gap: 32px;
     justify-content: space-between;
 
@@ -328,6 +328,21 @@
       &:focus {
         background-color: rgba(map-get($brand, 500), 0.1);
       }
+    }
+  }
+
+  &__form-extra {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+
+    &.is-visible {
+      max-height: 2000px;
+      opacity: 1;
     }
   }
 

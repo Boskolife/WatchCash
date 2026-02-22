@@ -24,6 +24,7 @@ import {
   initSellFormPhone,
   initCustomSelect,
   initSellFormSubmit,
+  initSellFormProgressiveReveal,
 } from './modules/forms.js';
 import { updateCurrentYear } from './modules/utils.js';
 import { initFaqAccordion } from './modules/faq.js';
@@ -44,4 +45,5 @@ initSellFormDragDrop();
 initSellFormPhone();
 initCustomSelect();
 initSellFormSubmit();
+initSellFormProgressiveReveal();
 initFaqAccordion();
