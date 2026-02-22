@@ -26,6 +26,7 @@ import {
   initSellFormSubmit,
 } from './modules/forms.js';
 import { updateCurrentYear } from './modules/utils.js';
+import { initFaqAccordion } from './modules/faq.js';
 
 // Initialize all modules
 initMobileMenu();
@@ -43,3 +44,4 @@ initSellFormDragDrop();
 initSellFormPhone();
 initCustomSelect();
 initSellFormSubmit();
+initFaqAccordion();
