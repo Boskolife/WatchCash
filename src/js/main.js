@@ -26,7 +26,7 @@ import {
   initSellFormSubmit,
   initSellFormProgressiveReveal,
 } from './modules/forms.js';
-import { updateCurrentYear } from './modules/utils.js';
+import { updateCurrentYear, initViewportActiveSections } from './modules/utils.js';
 import { initFaqAccordion } from './modules/faq.js';
 
 // Initialize all modules
@@ -47,3 +47,4 @@ initCustomSelect();
 initSellFormSubmit();
 initSellFormProgressiveReveal();
 initFaqAccordion();
+initViewportActiveSections();
