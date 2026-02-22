@@ -165,6 +165,11 @@
       font-weight: 600;
       text-transform: uppercase;
       @include px-to-percent-line-height(28px, 24px);
+
+      @include media ("<phone") {
+        text-transform: none;
+        text-decoration: none;
+      }
     }
   }
 
