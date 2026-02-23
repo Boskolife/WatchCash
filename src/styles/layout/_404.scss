@@ -1,0 +1,62 @@
+.section-404 {
+  padding-top: 80px;
+  margin-bottom: -17px;
+  overflow: hidden;
+
+  @include media('<tablet') {
+    padding-top: 100px;
+  }
+
+  &__inner {
+    max-width: 615px;
+    width: 100%;
+    margin-inline: auto;
+    text-align: center;
+    @include adaptive-value('margin-bottom', 70, 35, 1);
+  }
+
+  &__title {
+    @include adaptive-value('font-size', 200, 120, 1);
+    font-weight: 700;
+    color: map-get($brand, 500);
+    @include px-to-percent-line-height(220px, 200px);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  &__subtitle {
+    @include adaptive-value('font-size', 88, 48, 1);
+    @include px-to-percent-line-height(92px, 88px);
+    font-weight: 700;
+    color: map-get($brand, 500);
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    text-transform: none;
+
+    @include media ("<phone") {
+        text-transform: uppercase
+    }
+  }
+
+  &__description {
+    @include adaptive-value('font-size', 24, 16, 1);
+    @include px-to-percent-line-height(32px, 24px);
+    color: map-get($brand, 400);
+    margin-bottom: 40px;
+  }
+
+  &__image {
+    display: block;
+    max-width: 1125px;
+    width: 85%;
+    height: auto;
+    margin-inline: auto;
+
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+  }
+}

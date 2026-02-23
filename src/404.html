@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+
+{{> head }}
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    {{> header }}
+    <main class="main" id="main-content">
+        <section class="section-404">
+            <div class="container">
+                <div class="section-404__inner">
+                    <h1 class="section-404__title">404</h1>
+                    <h2 class="section-404__subtitle">Page Not Found</h2>
+                    <p class="section-404__description">It seems the page you’re looking for doesn’t exist.</p>
+                    <a href="index.html" class="section-404__button btn btn_primary">Return to Homepage</a>
+                </div>
+                {{{picture "/images/404.png" alt="404" class="section-404__image"}}}
+            </div>
+        </section>
+    </main>
+    {{> contact-modal }}
+    {{> mobile-menu }}
+    {{> footer }}
+    <script type="module" src="/js/main.js"></script>
+</body>
+
+</html>

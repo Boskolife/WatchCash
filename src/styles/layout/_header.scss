@@ -133,6 +133,7 @@
   &__bottom {
     background: linear-gradient(180deg, #d8dde2 0%, #fcfcfd 99.04%);
     padding: 12px 0;
+    display: none;
 
     &-inner {
       display: flex;
