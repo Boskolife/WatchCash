@@ -1,6 +1,6 @@
 .year-production {
   overflow: hidden;
-  
+
   &__header {
     padding: 80px 0;
     background:
@@ -116,7 +116,7 @@
       max-width: 450px;
       width: 100%;
       margin: 0 auto;
-      @include adaptive-value('margin-bottom', 40, 12, 1);
+      margin-bottom: 40px;
     }
   }
 

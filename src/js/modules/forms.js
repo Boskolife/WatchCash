@@ -1,6 +1,153 @@
 import intlTelInput from 'intl-tel-input';
 
 /**
+ * Rolex serial number → production year lookup based on a commonly used
+ * chart (Keepthetime / community-sourced data).
+ * Letter prefixes: map to the first year of their range.
+ * Numeric-only serials: use thresholds to approximate the year.
+ */
+const ROLEX_SERIAL_YEAR_TABLE = [
+  // Random/scattered modern serials (approximate)
+  { serial: 'Random', year: 2010 },
+
+  // Letter-prefix serials (approximate first year of range)
+  { serial: 'G', year: 2010 },
+  { serial: 'V', year: 2009 },
+  { serial: 'M', year: 2007 },
+  { serial: 'Z', year: 2006 },
+  { serial: 'D', year: 2005 },
+  { serial: 'F', year: 2003 },
+  { serial: 'Y', year: 2002 },
+  { serial: 'K', year: 2001 },
+  { serial: 'P', year: 2000 },
+  { serial: 'A', year: 1998 },
+  { serial: 'U', year: 1997 },
+  { serial: 'T', year: 1996 },
+  { serial: 'W', year: 1995 },
+  { serial: 'S', year: 1993 },
+  { serial: 'C', year: 1992 },
+  { serial: 'N', year: 1991 },
+  { serial: 'X', year: 1991 },
+  { serial: 'E', year: 1990 },
+  { serial: 'L', year: 1988 },
+  { serial: 'R', year: 1987 },
+
+  // Numeric serial thresholds (Keepthetime chart)
+  { serial: '9,999,999', year: 1987 },
+  { serial: '9,760,000', year: 1987 },
+  { serial: '9,300,000', year: 1986 },
+  { serial: '8,814,000', year: 1985 },
+  { serial: '8,388,000', year: 1984 },
+  { serial: '7,860,000', year: 1983 },
+  { serial: '7,366,000', year: 1982 },
+  { serial: '6,910,000', year: 1981 },
+  { serial: '6,430,000', year: 1980 },
+  { serial: '5,959,000', year: 1979 },
+  { serial: '5,481,000', year: 1978 },
+  { serial: '5,005,000', year: 1977 },
+  { serial: '4,535,000', year: 1976 },
+  { serial: '4,265,000', year: 1975 },
+  { serial: '4,000,000', year: 1974 },
+  { serial: '3,741,000', year: 1973 },
+  { serial: '3,478,000', year: 1972 },
+  { serial: '3,215,000', year: 1971 },
+  { serial: '2,952,000', year: 1970 },
+  { serial: '2,689,000', year: 1969 },
+  { serial: '2,426,000', year: 1968 },
+  { serial: '2,164,000', year: 1967 },
+  { serial: '1,870,000', year: 1966 },
+  { serial: '1,791,000', year: 1965 },
+  { serial: '1,713,000', year: 1964 },
+  { serial: '1,635,000', year: 1963 },
+  { serial: '1,557,000', year: 1962 },
+  { serial: '1,485,000', year: 1961 },
+  { serial: '1,401,000', year: 1960 },
+  { serial: '1,323,000', year: 1959 },
+  { serial: '1,245,000', year: 1958 },
+  { serial: '1,167,000', year: 1957 },
+  { serial: '1,095,000', year: 1956 },
+  { serial: '1,010,000', year: 1955 },
+  { serial: '935,000', year: 1954 },
+  { serial: '869,000', year: 1953 },
+  { serial: '804,000', year: 1952 },
+  { serial: '738,700', year: 1951 },
+  { serial: '673,600', year: 1950 },
+  { serial: '608,500', year: 1949 },
+  { serial: '543,400', year: 1948 },
+  { serial: '478,300', year: 1947 },
+  { serial: '413,200', year: 1946 },
+  { serial: '348,000', year: 1945 },
+  { serial: '283,000', year: 1944 },
+  { serial: '253,000', year: 1943 },
+  { serial: '224,000', year: 1942 },
+  { serial: '194,000', year: 1941 },
+  { serial: '164,600', year: 1940 },
+  { serial: '135,000', year: 1939 },
+  { serial: '117,000', year: 1938 },
+  { serial: '99,000', year: 1937 },
+  { serial: '81,000', year: 1936 },
+  { serial: '63,000', year: 1935 },
+  { serial: '45,000', year: 1934 },
+  { serial: '49,000', year: 1933 },
+  { serial: '42,680', year: 1932 },
+  { serial: '40,250', year: 1931 },
+  { serial: '37,820', year: 1930 },
+  { serial: '35,390', year: 1929 },
+  { serial: '32,960', year: 1928 },
+  { serial: '30,430', year: 1927 },
+  { serial: '28,000', year: 1926 },
+  { serial: '25,000', year: 1925 },
+];
+
+function parseSerialNum(s) {
+  const cleaned = String(s).replace(/,/g, '').trim();
+  const num = parseInt(cleaned, 10);
+  return Number.isNaN(num) ? null : num;
+}
+
+function findYearBySerialNumber(input) {
+  const raw = String(input).trim();
+  if (!raw) return null;
+
+  const normalized = raw.toUpperCase().replace(/\s+/g, ' ').trim();
+  const numericVal = parseSerialNum(raw);
+
+  // Letter prefixes and exact matches (Random, single-letter codes, etc.)
+  for (const row of ROLEX_SERIAL_YEAR_TABLE) {
+    const rowUpper = row.serial.toUpperCase();
+    const rowNorm = rowUpper.replace(/,/g, '').trim();
+
+    // Exact match (with or without commas/spaces)
+    if (normalized === rowUpper || normalized === rowNorm) {
+      return row.year;
+    }
+
+    // For letter prefixes, allow full serials that start with the prefix (e.g., V123456)
+    if (/^[A-Z]/.test(rowUpper) && normalized.startsWith(rowUpper)) {
+      return row.year;
+    }
+  }
+
+  // Numeric range lookup (pre-letter serials): table is newest-first; find smallest threshold >= user serial
+  if (numericVal !== null) {
+    const withNum = ROLEX_SERIAL_YEAR_TABLE.map((r) => ({
+      serialNum: parseSerialNum(r.serial),
+      year: r.year,
+    })).filter((r) => r.serialNum != null);
+
+    withNum.sort((a, b) => a.serialNum - b.serialNum);
+
+    for (const r of withNum) {
+      if (r.serialNum >= numericVal) return r.year;
+    }
+
+    return withNum[withNum.length - 1]?.year ?? null;
+  }
+
+  return null;
+}
+
+/**
  * Reveals extra form fields when user focuses on Brand Name input.
  * Used in section-sell-big (sell-my-watch page).
  */
@@ -762,6 +909,11 @@ export function initSellFormSubmit() {
   if (!forms.length) return;
 
   forms.forEach((form) => {
+    // Skip find form – it has its own custom submit logic
+    if (form.classList.contains('find__form')) {
+      return;
+    }
+
     // Add real-time validation on blur
     const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
     inputs.forEach((input) => {
@@ -931,9 +1083,59 @@ export function initSellFormSubmit() {
   });
 }
 
+/**
+ * Find form: lookup Rolex serial → year, then redirect to year-production with ?year=
+ */
+export function initFindForm() {
+  const form = document.querySelector('.find__form');
+  const serialInput = document.getElementById('find-serial-number');
+  if (!form || !serialInput) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const serial = serialInput.value.trim();
+    if (!serial) {
+      form.reportValidity();
+      return;
+    }
+    const year = findYearBySerialNumber(serial);
+    if (year != null) {
+      const url = new URL('year-production.html', window.location.href);
+      url.searchParams.set('year', String(year));
+      window.location.href = url.pathname + url.search;
+    } else {
+      serialInput.setCustomValidity('Serial number not found in our database. Please check and try again.');
+      form.reportValidity();
+      serialInput.addEventListener(
+        'input',
+        () => serialInput.setCustomValidity(''),
+        { once: true },
+      );
+    }
+  });
+}
+
 export function initYearProductionFormSteps() {
   const section = document.querySelector('.year-production');
   if (!section) return;
+
+  // Apply year from URL (e.g. from find form redirect)
+  const urlYear = new URLSearchParams(window.location.search).get('year');
+  if (urlYear && /^\d{4}$/.test(urlYear)) {
+    const subtitle = section.querySelector('.year-production__subtitle');
+    const title = section.querySelector('.year-production__title');
+    if (subtitle) {
+      subtitle.textContent = `Get the Value of Your ${urlYear} Rolex`;
+    }
+    if (title) {
+      title.textContent = `Year Production:${urlYear}`;
+    }
+    const yearInput = document.getElementById('year-production-form-year-of-purchase');
+    if (yearInput) {
+      yearInput.value = urlYear;
+      yearInput.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  }
 
   const stepContents = Array.from(
     section.querySelectorAll('.year-production__step-content'),

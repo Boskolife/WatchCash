@@ -25,6 +25,7 @@ import {
   initCustomSelect,
   initSellFormSubmit,
   initSellFormProgressiveReveal,
+  initFindForm,
   initYearProductionFormSteps,
 } from './modules/forms.js';
 import { updateCurrentYear, initViewportActiveSections } from './modules/utils.js';
@@ -47,6 +48,7 @@ initSellFormPhone();
 initCustomSelect();
 initSellFormSubmit();
 initSellFormProgressiveReveal();
+initFindForm();
 initYearProductionFormSteps();
 initFaqAccordion();
 initViewportActiveSections();
