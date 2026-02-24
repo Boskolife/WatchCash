@@ -25,7 +25,7 @@
 
   &__col {
     &.col-menu {
-      width: 200px;
+      width: 205px;
 
       @include media('<desktop') {
         width: 45%;
@@ -116,7 +116,8 @@
 
     &-item {
       padding: 16px 12px 16px 0;
-
+ 
+      cursor: pointer;
       @include media('<desktop') {
         padding: 16px 12px;
       }
@@ -127,6 +128,10 @@
       font-size: 16px;
       color: map-get($neutral, 100);
       text-transform: uppercase;
+      border: none;
+      background-color: transparent;
+      margin: 0;
+      padding: 0;
 
       &:hover {
         color: map-get($neutral, 100);
