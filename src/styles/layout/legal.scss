@@ -62,10 +62,15 @@
   }
   
   &__block{
-    margin-bottom: 60px;
+
+    &:not(:last-child){
+      margin-bottom: 60px;
+    }
   }
 
   &__subblock{
-    margin-bottom: 40px;
+    &:not(:last-child){
+      margin-bottom: 40px;
+    }
   }
 }
