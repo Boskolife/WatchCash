@@ -192,6 +192,10 @@
 
       &_primary {
         border: 1px solid map-get($neutral, 100);
+
+        &:hover {
+          color: map-get($neutral, 100);
+        }
       }
     }
   }
