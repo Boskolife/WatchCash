@@ -1,0 +1,201 @@
+<section class="year-production" id="year-production">
+    <div class="year-production__header">
+        <h1 class="year-production__title">Year Production</h1>
+    </div>
+    <div class="container">
+        <div class="year-production__content">
+            <h2 class="year-production__subtitle">Get the Value of Your 2001 Rolex</h2>
+            <div class="year-production__steps-list">
+                <span class="year-production__step-label active">1.Upload Photos</span>
+                <span class="year-production__step-label">2.Model</span>
+                <span class="year-production__step-label">3.Box & Papers </span>
+                <span class="year-production__step-label">4.Contact Information</span>
+            </div>
+            <div class="year-production__steps-content">
+                <div class="year-production__step-content step-one">
+                    <h2 class="year-production__step-content-title">Snap your watch</h2>
+                    <p class="year-production__step-content-text">Upload as many photos of your watch as possible (front
+                        view works best).</p>
+                    <div class="sell__form">
+                        <form class="year-production__form" novalidate>
+                            <div class="drag-and-drop-wrapper" data-drag-drop-wrapper>
+                                <label class="drag-and-drop-label">
+                                    <input type="file" id="year-production-upload-photos"
+                                        name="year-production-upload-photos" class="drag-and-drop-input"
+                                        accept="image/*" multiple aria-describedby="year-production-upload-photos-hint"
+                                        required>
+                                    <div class="drag-area" data-drag-area role="button" tabindex="0"
+                                        aria-label="Choose photos or drag and drop">
+                                        <div class="drag-area__inner">
+                                            <img class="drag-area__icon" src="/icons/document-upload.svg" alt=""
+                                                aria-hidden="true">
+                                            <span class="drag-area__title">Choose a file or drag &amp; drop it
+                                                here</span>
+                                            <p class="drag-area__description">PNG, GIF, WEBP, JPG. Up to 1Gb.</p>
+                                            <p class="drag-area__files" data-drag-files aria-live="polite"></p>
+                                        </div>
+                                    </div>
+                                </label>
+                                <span class="form-error" aria-live="polite"></span>
+                            </div>
+                            <button type="submit" class="year-production__form-button btn btn_primary" disabled>Continue</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="year-production__step-content step-two">
+                    <h2 class="year-production__step-content-title">Here’s what we found</h2>
+                    <p class="year-production__step-content-text">We’ve matched your watch details automatically.</p>
+                    <div class="sell__form">
+                        <form class="year-production__form" novalidate>
+                            <label for="year-production-form-model">
+                                Model / Reference number
+                                <input type="text" id="year-production-form-model" name="year-production-form-model"
+                                    placeholder="Enter your model" required>
+                            </label>
+                            <label for="year-production-form-condition">Condition
+                                <div class="custom-select" data-custom-select>
+                                    <select name="year-production-form-condition" id="year-production-form-condition"
+                                        aria-label="Do you have Original Box and Papers?" required>
+                                        <option value="">Please select...</option>
+                                        <option value="yes">New</option>
+                                        <option value="no">Used</option>
+                                    </select>
+                                    <button type="button" class="custom-select__button" aria-haspopup="listbox"
+                                        aria-expanded="false" aria-labelledby="year-production-form-condition">
+                                        <span class="custom-select__selected">Please select...</span>
+                                        <svg class="custom-select__arrow" width="20" height="20" viewBox="0 0 20 20"
+                                            fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                    <ul class="custom-select__dropdown" role="listbox"
+                                        aria-labelledby="year-production-form-condition">
+                                        <li class="custom-select__option" role="option" data-value="" tabindex="-1"
+                                            aria-selected="false">Please select...</li>
+                                        <li class="custom-select__option" role="option" data-value="yes" tabindex="-1"
+                                            aria-selected="false">New</li>
+                                        <li class="custom-select__option" role="option" data-value="no" tabindex="-1"
+                                            aria-selected="false">Used</li>
+                                    </ul>
+                                </div>
+                                <span class="form-error" aria-live="polite"></span>
+                            </label>
+                            <label for="year-production-form-year-of-purchase">
+                                Year of purchase
+                                <input type="text" id="year-production-form-year-of-purchase"
+                                    name="year-production-form-year-of-purchase"
+                                    placeholder="Enter your year of purchase" inputmode="numeric" pattern="\d{4}"
+                                    maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4);"
+                                    required>
+                            </label>
+                            <button type="submit" class="year-production__form-button btn btn_primary"
+                                disabled>Continue</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="year-production__step-content step-three">
+                    <h2 class="year-production__step-content-title">Add authenticity details</h2>
+                    <p class="year-production__step-content-text">Adding photos of your box and papers will help us
+                        speed up the valuation process.</p>
+                    <div class="sell__form">
+                        <form class="year-production__form" novalidate>
+                            <div class="radio-wrapper">
+                                <span class="form-label">Do you have Original Box?</span>
+                                <div class="radio-wrapper-inner">
+                                    <label for="year-production-form-box-yes" class="radio-wrapper-inner-item">
+                                        <input type="radio" id="year-production-form-box-yes"
+                                            name="year-production-form-box" value="yes" required>
+                                        Yes
+                                    </label>
+                                    <label for="year-production-form-box-no" class="radio-wrapper-inner-item">
+                                        <input type="radio" id="year-production-form-box-no"
+                                            name="year-production-form-box" value="no" required>
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="radio-wrapper">
+                                <span class="form-label">Do you have Original Papers?</span>
+                                <div class="radio-wrapper-inner">
+                                    <label for="year-production-form-papers-yes" class="radio-wrapper-inner-item">
+                                        <input type="radio" id="year-production-form-papers-yes"
+                                            name="year-production-form-papers" value="yes" required>
+                                        Yes
+                                    </label>
+                                    <label for="year-production-form-papers-no" class="radio-wrapper-inner-item">
+                                        <input type="radio" id="year-production-form-papers-no"
+                                            name="year-production-form-papers" value="no" required>
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                            <span class="form-label bottom-label">Upload file</span>
+                            <p class="year-production__step-content-text">Add clear photos of your box and papers here.
+                            </p>
+                            <div class="drag-and-drop-wrapper" data-drag-drop-wrapper>
+                                <label class="drag-and-drop-label">
+                                    <input type="file" id="year-production-upload-box-papers"
+                                        name="year-production-upload-box-papers" class="drag-and-drop-input"
+                                        accept="image/*" multiple
+                                        aria-describedby="year-production-upload-box-papers-hint" required>
+                                    <div class="drag-area" data-drag-area role="button" tabindex="0"
+                                        aria-label="Choose photos or drag and drop">
+                                        <div class="drag-area__inner">
+                                            <img class="drag-area__icon" src="/icons/document-upload.svg" alt=""
+                                                aria-hidden="true">
+                                            <span class="drag-area__title">Choose a file or drag &amp; drop it
+                                                here</span>
+                                            <p class="drag-area__description">PNG, GIF, WEBP, JPG. Up to 1Gb.</p>
+                                            <p class="drag-area__files" data-drag-files aria-live="polite"></p>
+                                        </div>
+                                    </div>
+                                </label>
+                                <span class="form-error" aria-live="polite"></span>
+                                <p id="year-production-upload-box-papers-hint" class="drag-and-drop-text">
+                                    Add clear photos of your box and papers here.
+                                </p>
+                            </div>
+                            <button type="submit" class="year-production__form-button btn btn_primary"
+                                disabled>Continue</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="year-production__step-content step-four">
+                    <h2 class="year-production__step-content-title">Where should we send your offer?</h2>
+                    <p class="year-production__step-content-text">Enter your details so our specialists can send you
+                        your free quote.</p>
+                    <div class="sell__form">
+                        <form class="year-production__form" novalidate>
+                            <label for="year-production-form-first-name">
+                                First Name
+                                <input type="text" id="year-production-form-first-name"
+                                    name="year-production-form-first-name" placeholder="Enter your first name" required>
+                            </label>
+                            <label for="year-production-form-last-name">
+                                Last Name
+                                <input type="text" id="year-production-form-last-name"
+                                    name="year-production-form-last-name" placeholder="Enter your last name" required>
+                            </label>
+                            <label for="year-production-form-email">
+                                Email address
+                                <input type="email" id="year-production-form-email" name="year-production-form-email"
+                                    placeholder="Enter your email address" required>
+                            </label>
+                            <label for="sell-form-phone">Phone number
+                                <input type="tel" id="sell-form-phone" name="sell-form-phone" placeholder="Phone Number"
+                                    autocomplete="tel" required>
+                                <span class="form-error" aria-live="polite"></span>
+                            </label>
+                            <button type="submit" class="year-production__form-button btn btn_primary"
+                                disabled>Continue</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

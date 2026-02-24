@@ -1,0 +1,172 @@
+.year-production {
+  overflow: hidden;
+  
+  &__header {
+    padding: 80px 0;
+    background:
+      url('/images/bg-lines-2.svg') center / cover no-repeat,
+      map-get($brand, 500);
+    text-align: center;
+    border-radius: 0 0 76px 76px;
+
+    @include media('<tablet') {
+      padding: 40px 0;
+      border-radius: 0 0 40px 40px;
+    }
+  }
+
+  &__content {
+    padding: 80px 0;
+  }
+
+  &__subtitle {
+    text-align: center;
+    @include adaptive-value('margin-bottom', 60, 40, 1);
+  }
+
+  &__steps-list {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    row-gap: 12px;
+    @include adaptive-value('margin-bottom', 60, 40, 1);
+
+    @include media('<tablet') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__step-label {
+    @include adaptive-value('font-size', 24, 16, 1);
+    @include px-to-percent-line-height(32px, 24px);
+    font-weight: 600;
+    color: map-get($neutral, 700);
+    text-transform: uppercase;
+    padding-bottom: 20px;
+    border-bottom: 1px solid map-get($neutral, 700);
+
+    @include media('<phone') {
+      text-transform: none;
+    }
+
+    &:not(:last-child) {
+      @include adaptive-value('padding-right', 40, 0, 1);
+    }
+
+    &.active {
+      color: map-get($brand, 500);
+      border-color: map-get($brand, 500);
+    }
+  }
+
+  &__steps-content {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  &__step-content {
+    display: none;
+    text-align: center;
+    gap: 0;
+
+    &.is-active {
+      display: block;
+    }
+
+    &.step-two,
+    &.step-four {
+      .year-production__form {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        @include media('<phone') {
+          gap: 16px;
+        }
+      }
+
+      .year-production__form-button {
+        margin-top: 36px;
+
+        @include media('<phone') {
+          margin-top: 24px;
+        }
+      }
+    }
+
+    &.step-three {
+      .year-production__step-content-text {
+        font-size: 14px;
+        color: map-get($brand, 500);
+        margin-bottom: 16px;
+      }
+    }
+
+    &-title {
+      @include adaptive-value('margin-bottom', 20, 12, 1);
+    }
+
+    &-text {
+      @include adaptive-value('font-size', 24, 16, 1);
+      @include px-to-percent-line-height(32px, 24px);
+      font-weight: 400;
+      max-width: 450px;
+      width: 100%;
+      margin: 0 auto;
+      @include adaptive-value('margin-bottom', 40, 12, 1);
+    }
+  }
+
+  &__form {
+    .drag-and-drop-wrapper {
+      @include adaptive-value('margin-bottom', 60, 40, 1);
+    }
+
+    &-button {
+      width: 100%;
+    }
+
+    .radio-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 24px;
+
+      &-inner {
+        display: flex;
+        gap: 32px;
+      }
+
+      &-inner-item {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        gap: 12px;
+        font-size: 16px;
+        color: map-get($brand, 500);
+        cursor: pointer;
+        font-weight: 400;
+
+        input {
+          accent-color: map-get($brand, 500);
+        }
+      }
+    }
+
+    .form-label {
+      text-align: center;
+      font-size: 16px;
+      color: map-get($brand, 500);
+      margin-bottom: 24px;
+
+      &.bottom-label {
+        @include media('<phone') {
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+}

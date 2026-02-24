@@ -19,7 +19,7 @@
 
   &_primary {
     background-color: map-get($brand, 500);
-    color: map-get($neutral, 100) !important;
+    color: map-get($neutral, 100);
 
     &:hover {
       background-color: map-get($brand, 700);
@@ -55,6 +55,11 @@
       background-color: map-get($neutral, 100);
       color: map-get($brand, 500);
     }
+  }
+
+  &:disabled {
+    color: map-get($brand, 300);
+    background-color: map-get($brand, 200);
   }
 }
 

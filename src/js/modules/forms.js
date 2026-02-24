@@ -930,3 +930,153 @@ export function initSellFormSubmit() {
     });
   });
 }
+
+export function initYearProductionFormSteps() {
+  const section = document.querySelector('.year-production');
+  if (!section) return;
+
+  const stepContents = Array.from(
+    section.querySelectorAll('.year-production__step-content'),
+  );
+  const stepLabels = Array.from(
+    section.querySelectorAll('.year-production__step-label'),
+  );
+  const forms = stepContents.map((step) =>
+    step.querySelector('.year-production__form'),
+  );
+
+  let currentStep = 0;
+
+  function setActiveStep(index) {
+    stepContents.forEach((step, i) => {
+      step.classList.toggle('is-active', i === index);
+    });
+    stepLabels.forEach((label, i) => {
+      label.classList.toggle('active', i === index);
+    });
+    currentStep = index;
+    updateStepButtonState(index);
+  }
+
+  function validateStepForm(form) {
+    if (!form) return true;
+    if (!form.checkValidity()) {
+      // Use built-in browser validation UI
+      form.reportValidity();
+      return false;
+    }
+    return true;
+  }
+
+  function focusFirstField(stepIndex) {
+    const step = stepContents[stepIndex];
+    if (!step) return;
+    const field = step.querySelector(
+      'input, select, textarea, button, [data-drag-area]',
+    );
+    if (field && typeof field.focus === 'function') {
+      setTimeout(() => field.focus(), 0);
+    }
+  }
+
+  function updateStepButtonState(formIndex) {
+    const form = forms[formIndex];
+    const btn = form?.querySelector('.year-production__form-button');
+    if (!btn) return;
+    btn.disabled = !form.checkValidity();
+  }
+
+  function handleFinalSubmit() {
+    // Validate all forms before submit
+    let allValid = true;
+    forms.forEach((form) => {
+      if (form && !form.checkValidity()) {
+        allValid = false;
+        form.reportValidity();
+      }
+    });
+
+    if (!allValid) {
+      const firstInvalid = section.querySelector(
+        '.year-production__form :invalid, [data-custom-select].is-invalid, [data-drag-drop-wrapper].is-invalid',
+      );
+      if (firstInvalid) {
+        const invalidStep = firstInvalid.closest('.year-production__step-content');
+        const idx = stepContents.indexOf(invalidStep);
+        if (idx !== -1 && idx !== currentStep) {
+          setActiveStep(idx);
+          focusFirstField(idx);
+        }
+      }
+      return;
+    }
+
+    // Aggregate data from all step forms
+    const aggregated = new FormData();
+    forms.forEach((form) => {
+      if (!form) return;
+      const fd = new FormData(form);
+      for (const [key, value] of fd.entries()) {
+        aggregated.append(key, value);
+      }
+    });
+
+    // Build serializable payload for console and localStorage (for testing)
+    const payload = { _submittedAt: new Date().toISOString(), fields: {} };
+    for (const [key, value] of aggregated.entries()) {
+      if (value instanceof File) {
+        payload.fields[key] = {
+          _type: 'File',
+          name: value.name,
+          size: value.size,
+          type: value.type,
+          lastModified: value.lastModified,
+        };
+        console.log(`${key}:`, payload.fields[key]);
+      } else {
+        payload.fields[key] = value;
+        console.log(`${key}:`, value);
+      }
+    }
+    console.log('=== Year Production Submission ===');
+    try {
+      localStorage.setItem(
+        'yearProductionFormSubmission',
+        JSON.stringify(payload, null, 2),
+      );
+    } catch (e) {
+      console.warn('Could not save submission to localStorage:', e);
+    }
+
+    // TODO: Replace with real submission when backend is ready
+    window.location.href = 'thanks-page.html';
+  }
+
+  // Initialize first step as active
+  setActiveStep(0);
+
+  stepContents.forEach((step, index) => {
+    const form = forms[index];
+    if (!form) return;
+
+    const updateButton = () => updateStepButtonState(index);
+    form.addEventListener('input', updateButton);
+    form.addEventListener('change', updateButton);
+    form.addEventListener('blur', updateButton, true);
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      if (!validateStepForm(form)) {
+        return;
+      }
+
+      if (index < stepContents.length - 1) {
+        setActiveStep(index + 1);
+        focusFirstField(index + 1);
+      } else {
+        handleFinalSubmit();
+      }
+    });
+  });
+}

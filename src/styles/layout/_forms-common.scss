@@ -15,10 +15,12 @@
     font-weight: 700;
     color: map-get($neutral, 700);
     letter-spacing: 0.01em;
+    text-align: start;
     @include px-to-percent-line-height(14px, 12px);
   }
 
   input {
+    width: 100%;
     padding: 16px;
     border-radius: 12px;
     border: 1px solid map-get($neutral, 500);
@@ -92,3 +94,267 @@
   }
 }
 
+// Drag and drop upload styles (shared between forms)
+.drag-and-drop-input {
+  position: absolute;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.drag-and-drop-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &.is-invalid {
+    .drag-area {
+      border-color: #dc3545;
+
+      &:hover {
+        border-color: #dc3545;
+      }
+    }
+  }
+}
+
+.drag-area {
+  cursor: pointer;
+  padding: 40px 30px;
+  border-radius: 24px;
+  border: 2px dashed map-get($neutral, 500);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+
+  &:hover {
+    border-color: map-get($brand, 500);
+  }
+
+  &.is-dragover {
+    border-color: map-get($brand, 500);
+    background-color: rgba(map-get($brand, 500), 0.06);
+  }
+
+  &.has-files {
+    border-style: solid;
+    border-color: map-get($brand, 500);
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 300px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 12px;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: map-get($brand, 500);
+    margin-bottom: 8px;
+  }
+
+  &__description {
+    font-size: 14px;
+    font-weight: 400;
+    color: map-get($brand, 500);
+  }
+
+  &__files {
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: map-get($neutral, 600);
+  }
+}
+
+.drag-and-drop-text {
+  font-size: 12px;
+  font-weight: 700;
+  color: map-get($neutral, 700);
+  letter-spacing: 0.01em;
+  @include px-to-percent-line-height(14px, 12px);
+}
+
+.form-error {
+  display: none;
+  font-size: 12px;
+  font-weight: 500;
+  color: #dc3545;
+  line-height: 1.4;
+
+  &.is-visible {
+    display: block;
+  }
+}
+
+// Custom select (shared between forms)
+.custom-select {
+  position: relative;
+  width: 100%;
+
+  &.is-invalid {
+    .custom-select__button {
+      border-color: #dc3545;
+
+      &:hover,
+      &:focus {
+        border-color: #dc3545;
+      }
+    }
+  }
+
+  &__button {
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid map-get($neutral, 500);
+    background-color: transparent;
+    color: map-get($neutral, 700);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: map-get($brand, 500);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: map-get($brand, 500);
+    }
+  }
+
+  &__selected {
+    flex: 1;
+    color: map-get($brand, 500);
+
+    .custom-select.is-placeholder & {
+      color: map-get($neutral, 700);
+    }
+  }
+
+  &__arrow {
+    flex-shrink: 0;
+    margin-left: 12px;
+    color: map-get($brand, 500);
+    transition: transform 0.3s ease;
+    pointer-events: none;
+
+    .custom-select.is-open & {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background-color: map-get($neutral, 100);
+    border: 1px solid map-get($neutral, 500);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    margin: 0;
+    padding: 4px;
+    list-style: none;
+  }
+
+  &.is-open {
+    .custom-select__dropdown {
+      display: block;
+    }
+  }
+
+  &__option {
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: map-get($brand, 500);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-radius: 8px;
+    outline: none;
+
+    &:hover,
+    &:focus {
+      background-color: rgba(map-get($brand, 500), 0.06);
+      outline: none;
+    }
+
+    &.is-selected {
+      background-color: rgba(map-get($brand, 500), 0.1);
+      font-weight: 600;
+    }
+
+    &:focus {
+      background-color: rgba(map-get($brand, 500), 0.1);
+    }
+  }
+}
+
+// intl-tel-input wrapper (shared between forms)
+.iti {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+
+  // Hide library's error class styling since we use custom validation
+  &.iti--error {
+    .iti__tel-input {
+      border-color: map-get($neutral, 500);
+    }
+  }
+}
+
+.iti__tel-input {
+  padding-left: 52px;
+
+  &.is-invalid {
+    border-color: #dc3545;
+
+    &:focus {
+      border-color: #dc3545;
+    }
+  }
+}
+.iti__search-input {
+  padding-left: 30px !important;
+}
+
+.iti__dropdown-content {
+  border-radius: 12px !important;
+}
+
+.iti__selected-dial-code {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
