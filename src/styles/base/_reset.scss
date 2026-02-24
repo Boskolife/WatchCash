@@ -2,6 +2,7 @@ html {
   box-sizing: border-box;
   /* Reserve scrollbar space to prevent layout shift when modals/menus open with overflow:hidden */
   // scrollbar-gutter: stable;
+  scroll-behavior: smooth;
 }
 
 *,

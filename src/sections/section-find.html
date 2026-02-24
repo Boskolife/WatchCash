@@ -1,0 +1,27 @@
+<section class="find" id="find">
+    <div class="find_header">
+        {{{picture "/images/find-img.png" alt="Find the Production Year of Your Rolex by Serial Number"
+        class="find__image"
+        sources=(array (object media="(max-width: 480px)" srcset="/images/find-img-mob.png"))
+        }}}
+        <div class="container">
+            <h1 class="find__title">Find the Production Year of Your Rolex by Serial Number</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="find__content">
+            <h2 class="find__subtitle">Enter your Rolex serial number below
+                to discover when it was made</h2>
+            <form class="find__form sell__form" novalidate>
+                <label for="find-serial-number">
+                    Enter serial number (letters or digits)
+                </label>
+                <div class="find__form-row">
+                    <input type="text" id="find-serial-number" name="find-serial-number" class="find__form-input"
+                        placeholder="Enter serial number" autocomplete="off" required>
+                    <button type="submit" class="find__form-button btn btn_primary">Find Year</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
