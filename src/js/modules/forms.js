@@ -1154,7 +1154,8 @@ export function initYearProductionFormSteps() {
       step.classList.toggle('is-active', i === index);
     });
     stepLabels.forEach((label, i) => {
-      label.classList.toggle('active', i === index);
+      // Mark current and all previous steps as active (completed/progress)
+      label.classList.toggle('active', i <= index);
     });
     currentStep = index;
     updateStepButtonState(index);
