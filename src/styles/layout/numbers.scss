@@ -48,12 +48,13 @@
     .numbers__block-content {
       padding: 80px 12px 60px 12px;
       background: none;
-      h2,
-      p {
-        color: map-get($brand, 400);
+
+      h2 {
+        color: map-get($brand, 500);
       }
 
       p {
+        color: map-get($brand, 400);
         max-width: 740px;
         margin: 0 auto;
       }
