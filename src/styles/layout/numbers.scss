@@ -347,6 +347,7 @@
         align-items: center;
         justify-content: center;
         font-weight: 600;
+        color: map-get($brand, 500);
         @include adaptive-value('width', 80, 40, 1);
         @include adaptive-value('height', 80, 40, 1);
         @include adaptive-value('font-size', 32, 24, 1);

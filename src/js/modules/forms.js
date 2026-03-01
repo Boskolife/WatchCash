@@ -194,6 +194,7 @@ export function initSellFormDragDrop() {
       if (dt.files.length) {
         input.files = dt.files;
         updateFilesLabel();
+        input.dispatchEvent(new Event('change', { bubbles: true }));
       }
     }
 
