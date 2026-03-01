@@ -1128,7 +1128,7 @@ export function initYearProductionFormSteps() {
       subtitle.textContent = `Get the Value of Your ${urlYear} Rolex`;
     }
     if (title) {
-      title.textContent = `Year Production:${urlYear}`;
+      title.textContent = `Year Production: ${urlYear}`;
     }
     const yearInput = document.getElementById('year-production-form-year-of-purchase');
     if (yearInput) {
