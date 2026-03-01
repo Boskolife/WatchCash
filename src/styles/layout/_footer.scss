@@ -40,13 +40,17 @@
     &.col-social {
       margin-left: auto;
 
+      .footer__col-title{
+        font-size: 24px;
+      }
+
       @include media('<desktop') {
         margin: 0 auto;
       }
     }
 
     &-title {
-      font-size: 24px;
+      @include adaptive-value("font-size", 24, 20, 1);
       font-weight: 600;
       color: map-get($neutral, 100);
       @include adaptive-value('margin-bottom', 16, 12, 1);

@@ -287,12 +287,27 @@
 
   &__content {
     margin: 60px 0 16px 0;
+
     &-columns,
     &-column-wrapper {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 16px 12px;
+    }
+
+    &-column-wrapper {
+      &:nth-child(1) {
+        @include media('<tablet') {
+          column-gap: 8px;
+        }
+      }
+
+      &:nth-child(2) {
+        @include media('<tablet') {
+          column-gap: 2px;
+        }
+      }
     }
 
     &-columns {
@@ -307,6 +322,10 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
+
+      @include media ("<tablet") {
+        gap: 8px;
+      }
 
       &-letter {
         display: flex;
