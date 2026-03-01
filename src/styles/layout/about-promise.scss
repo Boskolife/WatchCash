@@ -95,6 +95,7 @@
 
       @include media('<phone') {
         font-weight: 600;
+        text-transform: none;
       }
     }
 
@@ -102,6 +103,10 @@
       color: map-get($neutral, 500);
       @include px-to-percent-line-height(20px, 16px);
       font-size: 16px;
+
+      @include media('<phone') {
+        font-weight: 500;
+      }
     }
   }
 

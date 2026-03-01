@@ -38,13 +38,14 @@
   }
 
   &__banner {
-    position: absolute;
-    bottom: 12%;
-    right: 0;
-    max-width: 410px;
+    position: fixed;
+    bottom: 7%;
+    right: 1%;
+    max-width: 370px;
     width: 100%;
     height: auto;
-    z-index: 2;
+    z-index: 50;
+    transition: all 0.3s ease;
 
     background:
       url('/images/leather.png') center / cover no-repeat,
@@ -53,7 +54,7 @@
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 16px;
-    padding: 24px;
+    padding: 16px;
     border-radius: 28px;
 
     @include media('<tablet') {
@@ -92,7 +93,8 @@
     }
 
     &-button {
-      width: 205px;
+      width: 100%;
+      white-space: nowrap;
     }
   }
 

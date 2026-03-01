@@ -28,7 +28,11 @@ import {
   initFindForm,
   initYearProductionFormSteps,
 } from './modules/forms.js';
-import { updateCurrentYear, initViewportActiveSections } from './modules/utils.js';
+import {
+  updateCurrentYear,
+  initViewportActiveSections,
+  initHeroBannerAboveFooter,
+} from './modules/utils.js';
 import { initFaqAccordion } from './modules/faq.js';
 
 // Initialize all modules
@@ -52,3 +56,4 @@ initFindForm();
 initYearProductionFormSteps();
 initFaqAccordion();
 initViewportActiveSections();
+initHeroBannerAboveFooter();

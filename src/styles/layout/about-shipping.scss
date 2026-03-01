@@ -47,7 +47,7 @@
   .swiper-wrapper {
     @include media('<tablet') {
       flex-direction: column;
-      gap: 16px;
+      gap: 40px;
     }
   }
 

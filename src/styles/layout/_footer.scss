@@ -46,7 +46,7 @@
     }
 
     &-title {
-      @include adaptive-value('font-size', 24, 20, 1);
+      font-size: 24px;
       font-weight: 600;
       color: map-get($neutral, 100);
       @include adaptive-value('margin-bottom', 16, 12, 1);

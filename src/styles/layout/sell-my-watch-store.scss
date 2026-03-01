@@ -23,6 +23,12 @@
     display: block;
     border-radius: 24px;
     overflow: hidden;
+    min-height: 300px;
+
+
+    @include media ("<tablet") {
+      order: 2;
+    }
 
     img {
       width: 100%;
@@ -35,6 +41,11 @@
     display: block;
     border-radius: 24px;
     overflow: hidden;
+    min-height: 300px;
+
+    @include media ("<tablet") {
+      order: 1;
+    }
 
     iframe {
       width: 100%;
