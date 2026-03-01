@@ -138,20 +138,12 @@
   }
 
   &__title {
-    margin-bottom: 16px;
+    background: linear-gradient(170.73deg, #a17c36 -12.86%, #fdeaa5 92.98%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
     @include adaptive-value('margin-bottom', 16, 12, 1);
-
-    span {
-      display: block;
-
-      &:nth-child(2) {
-        color: transparent;
-        background: linear-gradient(90.18deg, #98999a -2.53%, #fcfcfd 69.39%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-    }
   }
 
   &__text {
