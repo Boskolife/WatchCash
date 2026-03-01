@@ -155,7 +155,7 @@
     @include px-to-percent-line-height(32px, 24px);
     max-width: 500px;
     margin: 0 auto;
-    @include adaptive-value('margin-bottom', 32, 24, 1);
+    @include adaptive-value('margin-bottom', 150, 24, 1);
 
     u {
       font-weight: 600;
@@ -183,7 +183,7 @@
       padding: 17px 25px;
 
       @include media('<tablet') {
-        padding: 16px 20px;
+        padding: 16px;
       }
     }
   }
