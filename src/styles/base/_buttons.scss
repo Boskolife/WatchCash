@@ -56,8 +56,9 @@
   }
 
   &:disabled {
-    color: map-get($brand, 300);
-    background-color: map-get($brand, 200);
+    color: map-get($brand, 200);
+    background: map-get($neutral, 500);
+    border-color: map-get($neutral, 600);
   }
 }
 
