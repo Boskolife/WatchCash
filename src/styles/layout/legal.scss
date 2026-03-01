@@ -2,7 +2,7 @@
   &__header {
     background-color: map-get($brand, 500);
     background:
-      url('/images/bg-lines-2.svg') center / cover no-repeat,
+      url('/images/leather.png') center / cover no-repeat,
       map-get($brand, 500);
     border-radius: 0 0 76px 76px;
     text-align: center;
@@ -17,7 +17,11 @@
   &__title {
     @include adaptive-value('font-size', 48, 32, 1);
     font-weight: 700;
-    color: map-get($neutral, 100);
+    background: linear-gradient(170.73deg, #a17c36 -12.86%, #fdeaa5 92.98%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
     margin: 0;
     letter-spacing: -0.02em;
     @include px-to-percent-line-height(56px, 48px);
@@ -25,14 +29,14 @@
 
   &__content {
     padding: 80px 0;
-    
-    h2{
-        @include adaptive-value('font-size', 32, 24, 1);
-        font-weight: 700;
-        color: map-get($brand, 500);
-        letter-spacing: -0.02em;
-        @include px-to-percent-line-height(40px, 32px);
-        margin-bottom: 40px;
+
+    h2 {
+      @include adaptive-value('font-size', 32, 24, 1);
+      font-weight: 700;
+      color: map-get($brand, 500);
+      letter-spacing: -0.02em;
+      @include px-to-percent-line-height(40px, 32px);
+      margin-bottom: 40px;
     }
 
     h3 {
@@ -50,26 +54,25 @@
       font-weight: 500;
       @include px-to-percent-line-height(24px, 20px);
 
-      &:not(:last-child){
+      &:not(:last-child) {
         margin-bottom: 20px;
       }
     }
 
-    a{
-        color: map-get($brand, 300);
-        font-weight: 600;
+    a {
+      color: map-get($brand, 300);
+      font-weight: 600;
     }
   }
-  
-  &__block{
 
-    &:not(:last-child){
+  &__block {
+    &:not(:last-child) {
       margin-bottom: 60px;
     }
   }
 
-  &__subblock{
-    &:not(:last-child){
+  &__subblock {
+    &:not(:last-child) {
       margin-bottom: 40px;
     }
   }
