@@ -250,39 +250,42 @@ export function initSellFormDragDrop() {
   });
 }
 
-export function initSellFormPhone() {
-  const phoneInput = document.getElementById('sell-form-phone');
-  const form = phoneInput?.closest('form');
-  if (!phoneInput || !form) return;
+const PHONE_INPUT_IDS = ['sell-form-phone', 'year-production-form-phone'];
 
-  const iti = intlTelInput(phoneInput, {
-    initialCountry: 'auto',
-    separateDialCode: true,
-    strictMode: true,
-    loadUtils: () => import('intl-tel-input/utils'),
-    geoIpLookup: (success, failure) => {
-      const geoUrl =
-        typeof window !== 'undefined' && window.location.port === '3000'
-          ? '/api/geo'
-          : 'https://ipapi.co/json';
-      fetch(geoUrl)
-        .then((res) => {
-          if (!res.ok) throw new Error('Network response was not ok');
-          return res.json();
-        })
-        .then((data) => {
-          const countryCode = data.country_code?.toLowerCase();
-          if (countryCode) {
-            success(countryCode);
-          } else {
-            failure();
-          }
-        })
-        .catch(() => {
+const intlTelInputOptions = {
+  initialCountry: 'auto',
+  separateDialCode: true,
+  strictMode: true,
+  loadUtils: () => import('intl-tel-input/utils'),
+  geoIpLookup: (success, failure) => {
+    const geoUrl =
+      typeof window !== 'undefined' && window.location.port === '3000'
+        ? '/api/geo'
+        : 'https://ipapi.co/json';
+    fetch(geoUrl)
+      .then((res) => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
+      .then((data) => {
+        const countryCode = data.country_code?.toLowerCase();
+        if (countryCode) {
+          success(countryCode);
+        } else {
           failure();
-        });
-    },
-  });
+        }
+      })
+      .catch(() => {
+        failure();
+      });
+  },
+};
+
+function initOnePhoneInput(phoneInput) {
+  const form = phoneInput.closest('form');
+  if (!form) return;
+
+  const iti = intlTelInput(phoneInput, intlTelInputOptions);
 
   // Validation: prevent entering more digits than required
   let lastValidValue = '';
@@ -388,16 +391,39 @@ export function initSellFormPhone() {
   phoneInput.addEventListener('countrychange', () => {
     lastValidValue = phoneInput.value;
     validatePhoneInput({ preventDefault: () => {} });
+    updatePhoneCustomValidity();
   });
 
-  // Phone validation is handled by validateForm() in initSellFormSubmit
-  // This handler just updates the phone value to international format before submission
-  form.addEventListener('submit', (e) => {
+  // So form.checkValidity() works (e.g. year-production step 4)
+  function updatePhoneCustomValidity() {
+    const val = phoneInput.value.trim();
+    if (!val) {
+      phoneInput.setCustomValidity('');
+      return;
+    }
+    try {
+      const valid =
+        iti.getNumber() && (typeof iti.isValidNumber === 'function' ? iti.isValidNumber() : true);
+      phoneInput.setCustomValidity(valid ? '' : 'Please enter a valid phone number');
+    } catch {
+      phoneInput.setCustomValidity('');
+    }
+  }
+
+  phoneInput.addEventListener('blur', updatePhoneCustomValidity);
+
+  form.addEventListener('submit', () => {
     const fullNumber = iti.getNumber();
     if (fullNumber) {
       phoneInput.value = fullNumber;
     }
-    // Phone validation is handled by validateForm() function
+  });
+}
+
+export function initSellFormPhone() {
+  PHONE_INPUT_IDS.forEach((id) => {
+    const phoneInput = document.getElementById(id);
+    if (phoneInput) initOnePhoneInput(phoneInput);
   });
 }
 
@@ -770,8 +796,10 @@ function validateForm(form) {
     }
   }
 
-  // Validate phone (if exists - only in big form)
-  const phoneInput = form.querySelector('#sell-form-phone');
+  // Validate phone (if exists - sell form or year-production form)
+  const phoneInput =
+    form.querySelector('#sell-form-phone') ||
+    form.querySelector('#year-production-form-phone');
   if (phoneInput) {
     const phoneValue = phoneInput.value.trim();
     if (!phoneValue) {
@@ -1215,7 +1243,21 @@ export function initYearProductionFormSteps() {
       return;
     }
 
-    // Aggregate data from all step forms
+    // Sync iti phone values to inputs before aggregating
+    forms.forEach((form) => {
+      if (!form) return;
+      const phoneInput = form.querySelector('input[type="tel"]');
+      if (phoneInput) {
+        try {
+          const itiInstance = phoneInput.iti || intlTelInput?.getInstance(phoneInput);
+          if (itiInstance && typeof itiInstance.getNumber === 'function') {
+            const fullNumber = itiInstance.getNumber();
+            if (fullNumber) phoneInput.value = fullNumber;
+          }
+        } catch (_) {}
+      }
+    });
+
     const aggregated = new FormData();
     forms.forEach((form) => {
       if (!form) return;
