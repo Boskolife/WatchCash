@@ -21,6 +21,11 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-fill-color: transparent;
+    @include adaptive-value("font-size", 48, 32, 1);
+
+    @include media ("<phone") {
+      font-weight: 700;
+    }
   }
 
   &__content {
