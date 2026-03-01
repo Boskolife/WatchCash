@@ -1,7 +1,7 @@
 .sell {
   padding: 80px 0;
   background:
-    url('/images/bg-lines-2.svg') center / cover no-repeat,
+    url('/images/leather.png') center / cover no-repeat,
     map-get($brand, 500);
   @include adaptive-value('border-radius', 76, 40, 1);
 
@@ -30,10 +30,15 @@
 
   &__title {
     color: map-get($neutral, 100);
+    background: linear-gradient(170.73deg, #a17c36 -12.86%, #fdeaa5 92.98%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
   }
 
   &__description {
-    color: map-get($neutral, 100);
+    color: map-get($neutral, 500);
     max-width: 470px;
     width: 100%;
     @include px-to-percent-line-height(20px, 16px);

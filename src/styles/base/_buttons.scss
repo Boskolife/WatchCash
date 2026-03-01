@@ -10,7 +10,7 @@
   text-transform: uppercase;
   text-decoration: none;
   transition: all 0.3s ease;
-  border: 1px solid transparent;
+  border: 3px solid #fdeaa5;
   cursor: pointer;
 
   @include media('<tablet') {
@@ -18,20 +18,18 @@
   }
 
   &_primary {
-    background-color: map-get($brand, 500);
-    color: map-get($neutral, 100);
-
-    &:hover {
-      background-color: map-get($brand, 700);
-    }
+    background: linear-gradient(90deg, #a17c36 0%, #fdeaa5 50%, #a17c36 100%);
+    color: map-get($brand, 500);
   }
 
   &_primary-white {
-    background-color: map-get($neutral, 100);
-    color: map-get($brand, 500);
+    background:
+      url('/images/leather.png') center / cover no-repeat,
+      map-get($brand, 500);
+    color: map-get($neutral, 100);
 
     &:hover {
-      background-color: map-get($neutral, 500);
+      color: map-get($neutral, 100);
     }
   }
 

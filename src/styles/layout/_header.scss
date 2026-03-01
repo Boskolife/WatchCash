@@ -17,8 +17,8 @@
     align-items: center;
     @include adaptive-value('column-gap', 35, 10, 1);
 
-    @include media ("<tablet") {
-        gap: 0;
+    @include media('<tablet') {
+      gap: 0;
     }
   }
 
@@ -131,7 +131,9 @@
   }
 
   &__bottom {
-    background: linear-gradient(180deg, #d8dde2 0%, #fcfcfd 99.04%);
+    background:
+      url('/images/leather.png') center / cover no-repeat,
+      map-get($brand, 500);
     padding: 12px 0;
     display: none;
 
@@ -156,7 +158,7 @@
     &-text {
       @include adaptive-value('font-size', 20, 16, 1);
       font-weight: 600;
-      color: map-get($brand, 400);
+      color: map-get($neutral, 100);
       text-transform: uppercase;
     }
   }

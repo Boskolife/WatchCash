@@ -46,13 +46,15 @@
     height: auto;
     z-index: 2;
 
+    background:
+      url('/images/leather.png') center / cover no-repeat,
+      map-get($brand, 500);
+
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 16px;
     padding: 24px;
     border-radius: 28px;
-    background: #fcfcfd47;
-    backdrop-filter: blur(32px);
 
     @include media('<tablet') {
       display: none;
@@ -166,7 +168,7 @@
       text-transform: uppercase;
       @include px-to-percent-line-height(28px, 24px);
 
-      @include media ("<phone") {
+      @include media('<phone') {
         text-transform: none;
         text-decoration: none;
       }
@@ -186,16 +188,8 @@
     .btn {
       padding: 17px 25px;
 
-      @include media ("<tablet") {
+      @include media('<tablet') {
         padding: 16px 20px;
-      }
-
-      &_primary {
-        border: 1px solid map-get($neutral, 100);
-
-        &:hover {
-          color: map-get($neutral, 100);
-        }
       }
     }
   }

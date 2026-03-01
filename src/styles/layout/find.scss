@@ -33,6 +33,11 @@
 
   &__title {
     max-width: 830px;
+    background: linear-gradient(170.73deg, #a17c36 -12.86%, #fdeaa5 92.98%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
 
     @include media('<phone') {
       text-transform: none;
